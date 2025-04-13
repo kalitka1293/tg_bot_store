@@ -1,0 +1,53 @@
+﻿{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sport Clothes Bot</title>
+    <link rel="stylesheet" href="{% static 'mini_app/css/index.css' %}" />
+    <script src="{% static 'mini_app/js/index.js' %}"></script>
+</head>
+<body>
+    <div class="header">
+        <h1>Sport Clothes Bot</h1>
+        <p>Лонгсливы · Кроссовки</p>
+    </div>
+
+    <div class="products-grid" id="productsContainer"></div>
+
+
+
+    <div class="products-grid" id="productsContainer2">
+
+        <div class="product-card">
+            <div class="discount-badge">100 ##</div>
+            <img src="https://media2.dev.to/dynamic/image/width=1000,height=420,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Fe2t3cfhkql3w6js9jbn8.png" alt="City" class="product-image">
+            <div class="brand">Start buy</div>
+            <h3 class="product-title">City</h3>
+            <div class="price-container">
+
+                <span class="new-price">9999 $</span>
+            </div>
+            <div class="stock-status">нету в наличии</div>
+            <button class="add-to-cart">В корзину</button>
+        </div>
+        <div class="product-card">
+            <div class="discount-badge">100</div>
+            <img src="photo_2023-07-14_23-06-21.jpg" alt="City" class="product-image">
+            <div class="brand">Start buy</div>
+            <h3 class="product-title">City</h3>
+            <div class="price-container">
+
+                <span class="new-price">9999</span>
+            </div>
+            <div class="stock-status">нету в наличии</div>
+            <button class="add-to-cart">В корзину</button>
+        </div>
+    </div>
+
+
+
+</body>
+</html>
