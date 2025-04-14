@@ -51,3 +51,12 @@ class ParameterProduct(models.Model):
 
     def __str__(self):
         return self.key, self.value, self.product.name
+
+
+class Basket(models.Model):
+    product = models.ForeignKey(to=Product, on_delete=models.CASCADE)
+    user = models.IntegerField()
+    quantity = models.SmallIntegerField()
+
+    def __str__(self):
+        return self.product.name

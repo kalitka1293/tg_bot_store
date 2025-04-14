@@ -8,6 +8,7 @@
     <title>Sport Clothes Bot</title>
     <link rel="stylesheet" href="{% static 'mini_app/css/index.css' %}" />
     <script src="{% static 'mini_app/js/index.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
 </head>
 <body>
     <div class="header">
@@ -37,12 +38,14 @@
             <div class="discount-badge">100</div>
             <img src="photo_2023-07-14_23-06-21.jpg" alt="City" class="product-image">
             <div class="brand">Start buy</div>
-            <h3 class="product-title">City</h3>
+            <h3 class="product-title">City this is buy</h3>
             <div class="price-container">
 
                 <span class="new-price">9999</span>
             </div>
             <div class="stock-status">нету в наличии</div>
+            <!-- class="id_product" здесь добавляется значение ID товара  -->
+            <input type="hidden" class="id_product" value="1" />
             <button class="add-to-cart">В корзину</button>
         </div>
     </div>
