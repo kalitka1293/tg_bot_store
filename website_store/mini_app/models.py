@@ -40,6 +40,8 @@ class Product(models.Model):
     #Добавить отзывы
     #review =
 
+    
+
     def __str__(self):
         return self.name
 
@@ -50,7 +52,24 @@ class ParameterProduct(models.Model):
     product = models.ForeignKey(to=Product, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.key, self.value, self.product.name
+        return self.key
+
+class ProductImage(models.Model):
+    product = models.ForeignKey(
+        Product,
+        on_delete=models.CASCADE,  # Удалять изображения при удалении товара
+        related_name='images'
+    )
+    image = models.ImageField(
+        upload_to='products_images',  # Папка для загрузки
+        verbose_name='Изображение'
+    )
+    is_main = models.BooleanField(
+        default=False,
+        verbose_name='Главное изображение'
+    )
+    def __str__(self):
+        return self.product.name
 
 
 class Basket(models.Model):

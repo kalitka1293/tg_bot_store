@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 
-from django.conf.global_settings import STATICFILES_DIRS
+from django.conf.global_settings import STATICFILES_DIRS, MEDIA_URL, MEDIA_ROOT
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -126,8 +126,27 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Redis
+
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/1",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        }
+    }
+}
+
+# Celery
+CELERY_BROKER_URL = 'redis://127.0.0.1:6379'
+CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379'

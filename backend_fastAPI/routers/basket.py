@@ -17,5 +17,5 @@ async def update(data: BasketDTO.Basket, db: AsyncSession = Depends(get_db)):
     return await BasketServices.update_basket(data, db)
 
 @router.delete('/', tags=['delete_basket'])
-async def update(data: BasketDTO.Basket, db: AsyncSession = Depends(get_db)):
+async def delete(data: BasketDTO.Basket, db: AsyncSession = Depends(get_db)):
     return await BasketServices.delete_basket(data, db)

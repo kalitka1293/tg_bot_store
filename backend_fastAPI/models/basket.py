@@ -1,6 +1,5 @@
 from sqlalchemy.orm import Mapped, mapped_column
-from database import Base, get_db
-from sqlalchemy.dialects.postgresql import INT8RANGE, INT4RANGE, SMALLINT
+from database import Base
 
 class Basket(Base):
     __tablename__ = 'mini_app_basket'

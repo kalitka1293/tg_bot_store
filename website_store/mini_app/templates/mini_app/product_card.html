@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Кроссовки мужские Nike Air Max</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .product-main {
+            display: flex;
+            gap: 30px;
+        }
+
+        .gallery {
+            flex: 1;
+            max-width: 500px;
+        }
+
+        .main-image img {
+            width: 100%;
+            border-radius: 8px;
+        }
+
+        .thumbnails {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .thumbnail img {
+            width: 100%;
+            border: 2px solid transparent;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .thumbnail.active img {
+            border-color: #FF5555;
+        }
+
+        .product-info {
+            flex: 1;
+            padding: 20px;
+        }
+
+        .price-block {
+            background: #FFF3F3;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .price {
+            font-size: 32px;
+            color: #FF5555;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .buy-btn {
+            background: #FF5555;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 18px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .details table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .details td {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .details tr:last-child td {
+            border-bottom: none;
+        }
+
+        .sizes {
+            display: flex;
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .size-btn {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .size-btn.selected {
+            border-color: #FF5555;
+            background: #FFF3F3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+                    <div class="gallery">
+                <div class="main-image">
+                    <img src="https://climate-1.ru/upload/iblock/39c/xlfjbeit6uvf15byn85o1hvyelw0gl7b.jpg" alt="Nike Air Max">
+                </div>
+                <div class="thumbnails">
+                    <div class="thumbnail active"><img src="https://climate-1.ru/upload/iblock/39c/xlfjbeit6uvf15byn85o1hvyelw0gl7b.jpg" alt=""></div>
+                    <div class="thumbnail"><img src="https://climate-1.ru/upload/iblock/39c/xlfjbeit6uvf15byn85o1hvyelw0gl7b.jpg" alt=""></div>
+                    <div class="thumbnail"><img src="https://climate-1.ru/upload/iblock/39c/xlfjbeit6uvf15byn85o1hvyelw0gl7b.jpg" alt=""></div>
+                    <div class="thumbnail"><img src="https://climate-1.ru/upload/iblock/39c/xlfjbeit6uvf15byn85o1hvyelw0gl7b.jpg" alt=""></div>
+                </div>
+            </div>
+        <div class="product-main">
+            <div class="product-info">
+                <h1>Кроссовки мужские Nike Air Max 270</h1>
+                <div class="price-block">
+                    <div class="price">12 499 ₽</div>
+                    <button class="buy-btn">Добавить в корзину</button>
+                </div>
+
+                <div class="sizes">
+                    <div class="size-btn">39</div>
+                    <div class="size-btn selected">40</div>
+                    <div class="size-btn">41</div>
+                    <div class="size-btn">42</div>
+                    <div class="size-btn">43</div>
+                </div>
+
+                <div class="details">
+                    <table>
+<!--                        {% for peculiarity in list_peculiarity %}-->
+
+<!--                        {% endfor %}-->
+                        <tr>
+                            <td>Артикул</td>
+                            <td>DH4019-100</td>
+                        </tr>
+                        <tr>
+                            <td>Цвет</td>
+                            <td>Белый/Черный</td>
+                        </tr>
+                        <tr>
+                            <td>Состав</td>
+                            <td>Кожа 60%, текстиль 40%</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <h2>Описание: </h2>
+        <div class="sizes">
+
+            <a>
+                Обратите внимание, что наряду с отфильтрованным querysetмы также используем пользовательское имя шаблона. Если бы мы этого не сделали, общее представление использовало бы тот же шаблон, что и «ванильный» список объектов, что может оказаться не тем, что нам нужно.
+            </a>
+
+
+        </div>
+
+    </div>
+
+    <script>
+        // Обработчик выбора размера
+        document.querySelectorAll('.size-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('selected'));
+                this.classList.add('selected');
+            });
+        });
+
+        // Обработчик миниатюр
+        document.querySelectorAll('.thumbnail').forEach(thumb => {
+            thumb.addEventListener('click', function() {
+                const mainImg = document.querySelector('.main-image img');
+                const newSrc = this.querySelector('img').src;
+                mainImg.src = newSrc.replace('-thumb', '');
+
+                document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Обработчик кнопки покупки
+        document.querySelector('.buy-btn').addEventListener('click', function() {
+            const size = document.querySelector('.size-btn.selected').innerText;
+            alert(`Добавлено в корзину: размер ${size}`);
+        });
+    </script>
+</body>
+</html>

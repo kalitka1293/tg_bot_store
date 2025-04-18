@@ -1,0 +1,128 @@
+﻿/* Основные стили для контейнера поиска */
+.search-container {
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    margin: 20px auto;
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+.search-box {
+    position: relative;
+    width: 100%;
+}
+
+/* Стили для поля ввода */
+.search-input {
+    width: 100%;
+    padding: 12px 50px 12px 20px;
+    font-size: 16px;
+    border: 2px solid #e0e0e0;
+    border-radius: 30px;
+    outline: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+    .search-input:focus {
+        border-color: #4a90e2;
+        box-shadow: 0 2px 10px rgba(74, 144, 226, 0.3);
+    }
+
+/* Стили для кнопки поиска */
+.search-btn {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    background: #4a90e2;
+    border: none;
+    border-radius: 50%;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+    .search-btn:hover {
+        background: #357ab8;
+    }
+
+/* Стили для выпадающих результатов */
+.search-results {
+    position: absolute;
+    top: calc(100% + 5px);
+    left: 0;
+    width: 100%;
+    max-height: 300px;
+    overflow-y: auto;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    z-index: 1000;
+    display: none;
+    border: 1px solid #e0e0e0;
+}
+
+.search-box:focus-within .search-results {
+    display: block;
+}
+
+/* Стили для отдельных элементов результатов */
+.search-result-item {
+    padding: 12px 20px;
+    font-size: 15px;
+    color: #333;
+    border-bottom: 1px solid #f0f0f0;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+    .search-result-item:last-child {
+        border-bottom: none;
+    }
+
+    .search-result-item:hover {
+        background-color: #f8f8f8;
+        color: #4a90e2;
+    }
+
+/* Анимация появления результатов */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.search-results {
+    animation: fadeIn 0.3s ease-out forwards;
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 768px) {
+    .search-container {
+        padding: 0 15px;
+    }
+
+    .search-input {
+        padding: 10px 45px 10px 15px;
+        font-size: 14px;
+    }
+
+    .search-btn {
+        width: 36px;
+        height: 36px;
+    }
+
+    .search-result-item {
+        padding: 10px 15px;
+        font-size: 14px;
+    }
+}

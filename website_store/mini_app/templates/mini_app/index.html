@@ -5,15 +5,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sport Clothes Bot</title>
-    <link rel="stylesheet" href="{% static 'mini_app/css/index.css' %}" />
-    <script src="{% static 'mini_app/js/index.js' %}"></script>
+    <title>SHOVIK STORE Bot</title>
+    <link rel="stylesheet" href="{% static 'mini_app/css/index/index.css' %}" />
+    <link rel="stylesheet" href="{% static 'mini_app/css/index/search.css' %}" />
+    <link rel="stylesheet" href="{% static 'mini_app/css/index/button_basket.css' %}" />
+    <script src="{% static 'mini_app/js/index/index.js' %}"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
 </head>
 <body>
+
+    <div class="search-container">
+        <div class="search-box">
+            <input type="text"
+                   class="search-input"
+                   placeholder="Введите поисковый запрос..."
+                   id="searchInput">
+            <button class="search-btn" id="searchBtn">
+                <i class="fas fa-search"></i>
+            </button>
+            <div class="search-results" id="searchResults"></div>
+        </div>
+    </div>
+
     <div class="header">
-        <h1>Sport Clothes Bot</h1>
-        <p>Лонгсливы · Кроссовки</p>
+        <h1>SHOVIK STORE Bot</h1>
+        <p>Кондиционеры · Комплектующее</p>
     </div>
 
     <div class="products-grid" id="productsContainer"></div>
@@ -21,33 +37,21 @@
 
 
     <div class="products-grid" id="productsContainer2">
-
+        {% for product in object_list %}
         <div class="product-card">
-            <div class="discount-badge">100 ##</div>
-            <img src="https://media2.dev.to/dynamic/image/width=1000,height=420,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Fe2t3cfhkql3w6js9jbn8.png" alt="City" class="product-image">
-            <div class="brand">Start buy</div>
-            <h3 class="product-title">City</h3>
+            <img src="https://previews.dropbox.com/p/thumb/ACmCP0sVC7M6tQ9xBIZe2Y1NnmQAcecsmPC4EqNW0NLTyk_AO6K3c5uphQGTr7FPzP1UCeiEF3lVSmDeMqdgzahchfQyQyThr1ukdk9NYk7q41jETM-T4bT9nIIjoG3KFXPwATauh7dsMpYKrWOFJwHQX_5iBag8fFrsFl2aF_gRzWhmS7YDXCTvQF7AKsvcCC2wT9MVRtjjjTkdV1sCVSPNKoB-US2AnMhsN-rdCKOxCMC_qXl2Fknw6C6UbjEfHijpvt8eIZyCcUlFvkl0hIkqKws5-2TpzNVr0CpuwW-ampjJHEYVSOiUX3Q1xqCtgvnSJL2iYlzzxQ103BHIk4RY/p.jpeg" alt="City" class="product-image">
+            <h3 class="product-title">{{ product.name}}</h3>
+            <div class="brand">{{ product.brand.brand }}</div>
             <div class="price-container">
 
-                <span class="new-price">9999 $</span>
+                <span class="new-price">{{ product.price }} руб.</span>
             </div>
-            <div class="stock-status">нету в наличии</div>
-            <button class="add-to-cart">В корзину</button>
-        </div>
-        <div class="product-card">
-            <div class="discount-badge">100</div>
-            <img src="photo_2023-07-14_23-06-21.jpg" alt="City" class="product-image">
-            <div class="brand">Start buy</div>
-            <h3 class="product-title">City this is buy</h3>
-            <div class="price-container">
-
-                <span class="new-price">9999</span>
-            </div>
-            <div class="stock-status">нету в наличии</div>
+            <div class="stock-status">В наличии</div>
             <!-- class="id_product" здесь добавляется значение ID товара  -->
-            <input type="hidden" class="id_product" value="1" />
-            <button class="add-to-cart">В корзину</button>
+            <input type="hidden" class="id_product" value="{{ product.id }}" />
+            <button id="button{{ product.id }}" class="add-to-cart" onclick="onclick">В корзину</button>
         </div>
+        {% endfor %}
     </div>
 
 
