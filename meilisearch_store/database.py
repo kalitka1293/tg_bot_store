@@ -94,8 +94,7 @@ class ParameterProduct(Base):
 
 def get_product_data_meilisearch(product_id: int) -> dict:
     import time
-    time.sleep(0.2)
-    print(product_id, type(product_id))
+    time.sleep(1)
     db = get_db()
     result = (
         db.query(Product)
@@ -108,7 +107,6 @@ def get_product_data_meilisearch(product_id: int) -> dict:
         .where(Product.id == product_id)
         .first()
     )
-    print(result)
     data = {
         "id": result.id,
         "name": result.name,

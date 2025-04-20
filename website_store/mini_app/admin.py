@@ -1,7 +1,7 @@
 from django.contrib import admin
 from mini_app.models import (Country, Product, ParameterProduct,
                              SubcategoryProduct, TypeEquipment, Brand,
-                             Basket, ProductImage)
+                             Basket, ProductImage, ReviewProduct)
 
 
 admin.site.register(Basket)
@@ -10,6 +10,11 @@ admin.site.register(ParameterProduct)
 admin.site.register(SubcategoryProduct)
 admin.site.register(TypeEquipment)
 admin.site.register(Brand)
+
+
+class ReviewProductAdmin(admin.TabularInline):
+    model = ReviewProduct
+    extra = 1
 
 class ParameterProductAdmin(admin.TabularInline):
     model = ParameterProduct
@@ -26,4 +31,4 @@ class ProductAdmin(admin.ModelAdmin):
     fields = ('name','description','brand','price','cooling_power','heating_power',
               'working_area','sound_level','country','group_product',
               'type_equipment',)
-    inlines = (DownloadImageAdmin, ParameterProductAdmin,)
+    inlines = (DownloadImageAdmin, ParameterProductAdmin, ReviewProductAdmin, )

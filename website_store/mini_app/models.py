@@ -1,5 +1,9 @@
 from django.db import models
+from django.core.files import File
 
+from PIL import Image
+import uuid
+from io import BytesIO
 
 class Country(models.Model):
     country = models.CharField(max_length=256)
@@ -29,6 +33,7 @@ class Product(models.Model):
     name = models.CharField(max_length=256)
     description = models.CharField()
     brand = models.ForeignKey(to=Brand, on_delete=models.DO_NOTHING)
+    view_main_menu = models.BooleanField(default=False)
     price = models.IntegerField()
     cooling_power = models.FloatField()
     heating_power = models.FloatField()
@@ -37,10 +42,6 @@ class Product(models.Model):
     country = models.ForeignKey(to=Country, on_delete=models.DO_NOTHING)
     group_product = models.ForeignKey(to=SubcategoryProduct, on_delete=models.DO_NOTHING)
     type_equipment = models.ForeignKey(to=TypeEquipment, on_delete=models.DO_NOTHING)
-    #Добавить отзывы
-    #review =
-
-    
 
     def __str__(self):
         return self.name
@@ -64,13 +65,57 @@ class ProductImage(models.Model):
         upload_to='products_images',  # Папка для загрузки
         verbose_name='Изображение'
     )
-    is_main = models.BooleanField(
-        default=False,
-        verbose_name='Главное изображение'
-    )
+
+    def generate_unique_name(self):
+        return f"{uuid.uuid4().hex}.webp"
+
+    def compress(self, image):
+        img = Image.open(image)
+        if img.mode in ('RGBA', 'P'):
+            img = img.convert('RGB')
+        im_io = BytesIO()
+        img.save(im_io, 'WEBP', quality=70, method=6)
+        return File(im_io, name=image.name)
+
+    def save(
+        self,
+        *args,
+        force_insert=False,
+        force_update=False,
+        using=None,
+        update_fields=None,
+    ):
+        if self.image:  # Только если есть изображение
+            # Генерация уникального имени перед сохранением
+            original_name = self.image.name
+            print('original_name', original_name, '\n\n')
+            self.image.name = self.generate_unique_name()
+
+            # Сжатие и оптимизация изображения
+            compressed_image = self.compress(self.image)
+            self.image.save(
+                compressed_image.name,
+                compressed_image.file,
+                save=False
+            )
+
+        super().save(
+        *args,
+        force_insert=False,
+        force_update=False,
+        using=None,
+        update_fields=None,)
+
+
+
     def __str__(self):
         return self.product.name
 
+class ReviewProduct(models.Model):
+    product = models.ForeignKey(to=Product, on_delete=models.CASCADE)
+    user_review_name = models.CharField()
+    comment = models.CharField()
+    rating = models.SmallIntegerField()
 
 class Basket(models.Model):
     product = models.ForeignKey(to=Product, on_delete=models.CASCADE)
