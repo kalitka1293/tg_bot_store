@@ -62,7 +62,7 @@ class ProductImage(models.Model):
         related_name='images'
     )
     image = models.ImageField(
-        upload_to='products_images',  # Папка для загрузки
+        upload_to='products_images/',  # Папка для загрузки
         verbose_name='Изображение'
     )
 

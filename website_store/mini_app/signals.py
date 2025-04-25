@@ -11,6 +11,7 @@ from config_common import PRODUCT_MEILISEARCH
 
 @receiver(post_save, sender=Product)
 def after_add_product_in_db(sender, instance, created, **kwargs):
+    return
     data = {
         "product_id": instance.id,
         "type":"add_product",

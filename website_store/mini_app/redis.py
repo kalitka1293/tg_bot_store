@@ -8,7 +8,8 @@ def download_product_all_redis():
     main_product = {}
     for product in result:
         product_data = {str(product.id):{
-            'name': product.name,
+        'id': str(product.id),
+        'name': product.name,
         'description': product.description,
         'brand': product.brand.brand,
         'price': product.price,
@@ -27,13 +28,19 @@ def download_product_all_redis():
             }
         }
         if product.view_main_menu:
+            print(product_data)
             main_product.update(product_data)
         else:
             dict_product.update(product_data)
 
-    # cache.set('products', dict_product)
-    # dict_product.clear()
+    main_product.update(dict_product)
+    cache.set('products', main_product)
+
+    main_product.clear()
+    dict_product.clear()
 
     return dict_product
+
+
 
 

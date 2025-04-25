@@ -30,5 +30,5 @@ class ProductAdmin(admin.ModelAdmin):
     list_display = ('name', 'brand', 'price', 'group_product')
     fields = ('name','description','brand','price','cooling_power','heating_power',
               'working_area','sound_level','country','group_product',
-              'type_equipment',)
+              'type_equipment', 'view_main_menu',)
     inlines = (DownloadImageAdmin, ParameterProductAdmin, ReviewProductAdmin, )

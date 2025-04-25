@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{% static 'mini_app/css/index/index.css' %}" />
     <link rel="stylesheet" href="{% static 'mini_app/css/index/search.css' %}" />
     <link rel="stylesheet" href="{% static 'mini_app/css/index/button_basket.css' %}" />
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
     <script src="{% static 'mini_app/js/index/index.js' %}"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
 </head>
@@ -39,7 +40,21 @@
     <div class="products-grid" id="productsContainer2">
         {% for product in object_list %}
         <div class="product-card">
-            <img src="https://previews.dropbox.com/p/thumb/ACmCP0sVC7M6tQ9xBIZe2Y1NnmQAcecsmPC4EqNW0NLTyk_AO6K3c5uphQGTr7FPzP1UCeiEF3lVSmDeMqdgzahchfQyQyThr1ukdk9NYk7q41jETM-T4bT9nIIjoG3KFXPwATauh7dsMpYKrWOFJwHQX_5iBag8fFrsFl2aF_gRzWhmS7YDXCTvQF7AKsvcCC2wT9MVRtjjjTkdV1sCVSPNKoB-US2AnMhsN-rdCKOxCMC_qXl2Fknw6C6UbjEfHijpvt8eIZyCcUlFvkl0hIkqKws5-2TpzNVr0CpuwW-ampjJHEYVSOiUX3Q1xqCtgvnSJL2iYlzzxQ103BHIk4RY/p.jpeg" alt="City" class="product-image">
+
+            <div class="swiper product-swiper">
+            <div class="swiper-wrapper">
+                {% for image in product.images_product %}
+                <div class="swiper-slide">
+                    <img src="{{ image }}" alt="{{ product.name }}" class="product-image">
+                </div>
+                {% endfor %}
+            </div>
+            <!-- Пагинация и навигация -->
+            <div class="swiper-pagination"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+            </div>
+
             <h3 class="product-title">{{ product.name}}</h3>
             <div class="brand">{{ product.brand.brand }}</div>
             <div class="price-container">
@@ -55,6 +70,71 @@
     </div>
 
 
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script>
+    // Инициализация слайдеров для всех карточек
+    document.addEventListener('DOMContentLoaded', function() {
+        const swipers = document.querySelectorAll('.product-swiper');
+        swipers.forEach(swiperEl => {
+            new Swiper(swiperEl, {
+                loop: true,
+                speed: 400,
+                spaceBetween: 0,
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                },
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+            });
+        });
+    });
+</script>
 
+<style>
+    /* Стили для слайдера */
+    .product-swiper {
+        width: 100%;
+        height: 250px;
+        margin-bottom: 15px;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    .swiper-slide img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .swiper-button-prev,
+    .swiper-button-next {
+        color: white;
+        background: rgba(0,0,0,0.3);
+        padding: 15px;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .swiper-button-prev::after,
+    .swiper-button-next::after {
+        font-size: 20px;
+    }
+
+    .swiper-pagination-bullet {
+        background: white !important;
+        opacity: 0.7;
+    }
+
+    .swiper-pagination-bullet-active {
+        opacity: 1;
+    }
+</style>
 </body>
 </html>
