@@ -68,7 +68,70 @@
         </div>
         {% endfor %}
     </div>
+<div class="mobile-paginator">
+    <style>
+        .mobile-paginator {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #ffffff;
+            padding: 15px 20px;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
 
+        .paginator-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .paginator-link {
+            text-decoration: none;
+            color: #4a5568;
+            padding: 10px 15px;
+            border-radius: 8px;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        .paginator-link:hover {
+            background: #f7fafc;
+        }
+
+        .paginator-link.disabled {
+            color: #cbd5e0;
+            pointer-events: none;
+        }
+
+        .page-info {
+            color: #718096;
+            font-size: 0.9em;
+            white-space: nowrap;
+        }
+    </style>
+
+    <div class="paginator-content">
+        {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}" class="paginator-link">← Назад</a>
+        {% else %}
+            <span class="paginator-link disabled">← Назад</span>
+        {% endif %}
+
+        <span class="page-info">
+            Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}" class="paginator-link">Вперед →</a>
+        {% else %}
+            <span class="paginator-link disabled">Вперед →</span>
+        {% endif %}
+    </div>
+</div>
 
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <script>
