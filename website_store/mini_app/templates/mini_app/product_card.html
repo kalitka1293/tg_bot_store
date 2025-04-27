@@ -1,9 +1,11 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Кроссовки мужские Nike Air Max</title>
+    <title>{{ product_card.name }}</title>
     <style>
         * {
             box-sizing: border-box;
@@ -111,69 +113,225 @@
             border-color: #FF5555;
             background: #FFF3F3;
         }
+        .size-btn a {
+    color: inherit;
+    text-decoration: none;
+        }
+
     </style>
 </head>
 <body>
     <div class="container">
                     <div class="gallery">
-                <div class="main-image">
-                    <img src="https://climate-1.ru/upload/iblock/39c/xlfjbeit6uvf15byn85o1hvyelw0gl7b.jpg" alt="Nike Air Max">
-                </div>
+                        <div class="main-image"><img src="{{ product_card.images_product.0 }}" alt="{{product_card.name}}"></div>
                 <div class="thumbnails">
-                    <div class="thumbnail active"><img src="https://climate-1.ru/upload/iblock/39c/xlfjbeit6uvf15byn85o1hvyelw0gl7b.jpg" alt=""></div>
-                    <div class="thumbnail"><img src="https://climate-1.ru/upload/iblock/39c/xlfjbeit6uvf15byn85o1hvyelw0gl7b.jpg" alt=""></div>
-                    <div class="thumbnail"><img src="https://climate-1.ru/upload/iblock/39c/xlfjbeit6uvf15byn85o1hvyelw0gl7b.jpg" alt=""></div>
-                    <div class="thumbnail"><img src="https://climate-1.ru/upload/iblock/39c/xlfjbeit6uvf15byn85o1hvyelw0gl7b.jpg" alt=""></div>
+                    {% for im in  product_card.images_product %}
+                        <div class="thumbnail"><img src="{{ im }}" alt="{{product_card.name}}"></div>
+                    {% endfor %}
                 </div>
             </div>
         <div class="product-main">
             <div class="product-info">
-                <h1>Кроссовки мужские Nike Air Max 270</h1>
+                <h1>{{ product_card.name }}</h1>
                 <div class="price-block">
-                    <div class="price">12 499 ₽</div>
+                    <div class="price">{{ product_card.price }} ₽</div>
                     <button class="buy-btn">Добавить в корзину</button>
                 </div>
 
                 <div class="sizes">
-                    <div class="size-btn">39</div>
-                    <div class="size-btn selected">40</div>
-                    <div class="size-btn">41</div>
-                    <div class="size-btn">42</div>
-                    <div class="size-btn">43</div>
+<!--                    <div class="size-btn selected">40</div>-->
+                    {% for other_product in product_card.group_product %}
+                        {% if other_product.id == product_card.id %}
+                            <div class="size-btn selected no-link-style">{{ other_product.working_area }}</div>
+                        {% else %}
+                    <div class="size-btn no-link-style">
+                        <a href="{% url 'mini_app:product_card' other_product.id %}">{{ other_product.working_area }}</a>
+                    </div>
+                        {% endif %}
+                    {% endfor %}
                 </div>
+
+                <h2>Описание: </h2>
+                    <div class="sizes">
+                        <a>
+                            {{ product_card.description }}
+                        </a>
+                    </div>
 
                 <div class="details">
                     <table>
-<!--                        {% for peculiarity in list_peculiarity %}-->
-
-<!--                        {% endfor %}-->
                         <tr>
-                            <td>Артикул</td>
-                            <td>DH4019-100</td>
+                            <td>Название:</td>
+                            <td>{{ product_card.name }}</td>
                         </tr>
                         <tr>
-                            <td>Цвет</td>
-                            <td>Белый/Черный</td>
+                            <td>Бренд:</td>
+                            <td>{{ product_card.brand }}</td>
                         </tr>
                         <tr>
-                            <td>Состав</td>
-                            <td>Кожа 60%, текстиль 40%</td>
+                            <td>Страна производитель:</td>
+                            <td>{{ product_card.country }}</td>
                         </tr>
+                        <tr>
+                            <td>Мощность охлаждения:</td>
+                            <td>{{ product_card.cooling_power }}</td>
+                        </tr>
+                        <tr>
+                            <td>Мощность обогрева:</td>
+                            <td>{{ product_card.heating_power }}</td>
+                        </tr>
+                        <tr>
+                            <td>Рабочая площадь:</td>
+                            <td>{{ product_card.working_area }}</td>
+                        </tr>
+                        <tr>
+                            <td>Уровень шума:</td>
+                            <td>{{ product_card.sound_level }}</td>
+                        </tr>
+                        <tr>
+                            <td>Тип кондиционера:</td>
+                            <td>{{ product_card.type_equipment }}</td>
+                        </tr>
+                           {% for parameter in product_card.parameter_product %}
+                                {% for key, value in parameter.items %}
+                                    <tr>
+                                        <td>{{ key }}:</td>
+                                        <td>{{ value }}</td>
+                                    </tr>
+                                {% endfor %}
+                            {% endfor %}
                     </table>
                 </div>
             </div>
         </div>
+<!--sdlfjsdlgjslgkj ##################################################################################################################;-->
 
-        <h2>Описание: </h2>
-        <div class="sizes">
+        <div class="reviews-container">
+    <style>
+        .reviews-container {
+            padding: 20px 15px 80px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
 
-            <a>
-                Обратите внимание, что наряду с отфильтрованным querysetмы также используем пользовательское имя шаблона. Если бы мы этого не сделали, общее представление использовало бы тот же шаблон, что и «ванильный» список объектов, что может оказаться не тем, что нам нужно.
-            </a>
+        .review-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 18px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border: 1px solid #eee;
+        }
+
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .review-author {
+            font-weight: 600;
+            color: #1a1a1a;
+            font-size: 16px;
+        }
+
+        .review-date {
+            color: #666;
+            font-size: 13px;
+        }
+
+        .stars {
+            display: flex;
+            gap: 3px;
+            margin-bottom: 10px;
+        }
+
+        .star {
+            color: #ffd700;
+            font-size: 20px;
+        }
+
+        .empty-star {
+            color: #ddd;
+        }
+
+        .review-text {
+            color: #333;
+            line-height: 1.4;
+            font-size: 15px;
+        }
+
+        .no-reviews {
+            text-align: center;
+            color: #666;
+            padding: 40px 20px;
+            font-size: 16px;
+        }
+
+        .add-review-btn {
+            align-items: center;
+            bottom: 20px;
+            transform: translateX(-50%);
+            background: #007bff;
+            color: white;
+            padding: 16px 40px;
+            border-radius: 30px;
+            border: none;
+            font-size: 16px;
+            font-weight: 500;
+            box-shadow: 0 4px 12px rgba(0,123,255,0.3);
+            cursor: pointer;
+        }
+
+        .add-review-btn:hover {
+            background: #0069d9;
+            transform: translateX(-50%) scale(1.05);
+        }
+    </style>
+
+    {% if product_card.review_product %}
+        {% for review in product_card.review_product %}
+            <div class="review-card">
+                <div class="review-header">
+                    <span class="review-author">{{ review.user_review_name }}</span>
+<!--                    <span class="review-date">{{ review.created_at|date:"d.m.Y" }}</span>-->
+                </div>
+
+                <div class="stars">
+                    {% for i in "12345" %}
+                        {% if forloop.counter <= review.rating %}
+                            <span class="star">★</span>
+                        {% else %}
+                            <span class="star empty-star">★</span>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+
+                <p class="review-text">{{ review.comment }}</p>
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="no-reviews">Отзывов пока нет</div>
+    {% endif %}
 
 
-        </div>
-
+</div>
+    <button class="add-review-btn" onclick="showReviewForm()">Оставить отзыв</button>
+<script>
+    function showReviewForm() {
+        // Ваша логика открытия формы
+        alert('Форма отзыва будет здесь');
+        /* Пример реализации:
+        const form = document.createElement('div');
+        form.innerHTML = `
+            <div class="review-form-overlay">
+                ...
+            </div>
+        `;
+        document.body.appendChild(form);
+        */
+    }
+</script>
     </div>
 
     <script>

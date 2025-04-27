@@ -30,6 +30,9 @@ class Brand(models.Model):
         return self.brand
 
 class Product(models.Model):
+    """
+    Установить CASCADE в on_delete
+    """
     name = models.CharField(max_length=256)
     description = models.CharField()
     brand = models.ForeignKey(to=Brand, on_delete=models.DO_NOTHING)

@@ -5,6 +5,6 @@ app_name = 'mini_app'
 
 urlpatterns = [
     path('menu/', MainMenuView.as_view(), name='main_menu'),
-    path('product/<int:product_id>', ProductCardView.as_view(), name='product_card'),
+    path('product/<str:product_id>', ProductCardView.as_view(), name='product_card'),
 ]
 #<id:int>

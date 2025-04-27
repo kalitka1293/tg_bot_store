@@ -27,7 +27,7 @@ class DownloadImageAdmin(admin.TabularInline):
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ('name', 'brand', 'price', 'group_product')
+    list_display = ('name', 'brand', 'price', 'group_product', 'id')
     fields = ('name','description','brand','price','cooling_power','heating_power',
               'working_area','sound_level','country','group_product',
               'type_equipment', 'view_main_menu',)

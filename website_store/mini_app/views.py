@@ -21,7 +21,9 @@ class ProductCardView(TemplateView):
     template_name = 'mini_app/product_card.html'
 
     def get_context_data(self, **kwargs):
+        download_product_all_redis()
         context = super().get_context_data(**kwargs)
         product_id = self.kwargs.get('product_id')
-        context['list_peculiarity'] = None
-        return None
+        context['product_card'] = cache.get('products').get(product_id)
+        print(context)
+        return context

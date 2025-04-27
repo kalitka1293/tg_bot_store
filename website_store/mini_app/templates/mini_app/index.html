@@ -33,11 +33,7 @@
         <p>Кондиционеры · Комплектующее</p>
     </div>
 
-    <div class="products-grid" id="productsContainer"></div>
-
-
-
-    <div class="products-grid" id="productsContainer2">
+    <div class="products-grid" id="productsContainer">
         {% for product in object_list %}
         <div class="product-card">
 
@@ -56,6 +52,7 @@
             </div>
 
             <h3 class="product-title">{{ product.name}}</h3>
+            <a href="{% url 'mini_app:product_card' product.id %}">Link</a>
             <div class="brand">{{ product.brand.brand }}</div>
             <div class="price-container">
 

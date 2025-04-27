@@ -19,7 +19,7 @@ def download_product_all_redis():
         'working_area': product.working_area,
         'sound_level': product.sound_level,
         'country': product.country.country,
-        'group_product': str(product.group_product.id),
+        'group_product': [{'id': str(item.id), 'working_area': item.working_area} for item in Product.objects.filter(group_product=product.group_product)],
         'type_equipment': product.type_equipment.type_equipment,
         'parameter_product': [{item.key: item.value} for item in ParameterProduct.objects.filter(product=product)],
         'review_product': [{"user_review_name": item.user_review_name, "comment": item.comment, "rating": item.rating}
@@ -28,18 +28,17 @@ def download_product_all_redis():
             }
         }
         if product.view_main_menu:
-            print(product_data)
             main_product.update(product_data)
         else:
             dict_product.update(product_data)
 
     main_product.update(dict_product)
     cache.set('products', main_product)
-
+    print(main_product)
     main_product.clear()
     dict_product.clear()
 
-    return dict_product
+    return None
 
 
 
