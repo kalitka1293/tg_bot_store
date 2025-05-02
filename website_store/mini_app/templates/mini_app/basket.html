@@ -1,0 +1,79 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Корзина Wildberries</title>
+    <link rel="stylesheet" href="{% static 'mini_app/css/index/hat.css' %}" />
+    <link rel="stylesheet" href="{% static 'mini_app/css/basket/basket.css' %}" />
+    <script src="{% static 'mini_app/js/basket/basket.js' %}"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
+
+</head>
+<body>
+    <div>
+        {% include 'mini_app/header.html' %}
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <a href="#" class="back-btn">←</a>
+            <h1 class="title">Корзина</h1>
+        </div>
+
+        <div id="cart-items">
+            {% for product in products %}
+            <div class="cart-item">
+                <div class="item-content">
+                    <!-- Новый контейнер -->
+                    <img src="{{ product.images_product.0 }}" class="item-image" alt="{{ product.name }}">
+                    <div class="item-info">
+                        <input type="hidden" class="price_product" value="{{ product.price }}" />
+                        <div class="item-price">{{ product.sum }} ₽</div>
+                        <div class="item-title">{{ product.name }}</div>
+                        <div class="quantity-controls">
+                            <button class="quantity-btn minus" data-id="{{ product.id }}">-</button>
+                            <span class="quantity">{{ product.quantity }}</span>
+                            <button class="quantity-btn plus" data-id="{{ product.id }}">+</button>
+                        </div>
+                    </div>
+                </div>
+                <button class="delete-btn" data-id="{{ product.id }}">×</button>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="total">
+            <div class="total-content">
+                {% if products %}
+                <span class="total-text">Итого:</span>
+                <span class="total-price">{{ total_sum }} ₽</span>
+                {% else %}
+
+                {% endif %}
+            </div>
+            {% if products %}
+            <a href="http://127.0.0.1:8080/mini_app/menu" class="a-checkout-btn">
+                <button href="http://google.com" class="checkout-btn">Перейти к оформлению</button>
+            </a>
+            {% else %}
+
+            <a href="http://127.0.0.1:8080/mini_app/menu" class="a-checkout-btn">
+                <button href="http://google.com" class="checkout-btn">Перейти к каталогу товаров</button>
+            </a>
+            {% endif %}
+        </div>
+        {% if not products %}
+        <div id="empty-cart-message" class="empty-cart">
+            Ваша корзина пуста
+        </div>
+        {% endif %}
+        <div id="empty-cart-message" class="empty-cart" style="display: none;">
+            Ваша корзина пуста
+        </div>
+    </div>
+</body>
+</html>

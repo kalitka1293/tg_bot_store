@@ -16,21 +16,7 @@
     <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
 </head>
 <body>
-    <div class="hat">
-        <div class="main-icon">
-            <a href="https://google.com" target="_self">
-                <img src="{% static 'mini_app/icon/main-icon.png' %}" alt="main-icon" class="main-icon-image">
-            </a>
-        </div>
-
-        <div class="basket-icon">
-            <img src="{% static 'mini_app/icon/basket.png' %}" alt="basket-icon" class="basket-icon-image">
-        </div>
-
-        <div class="channel-button">
-            <img src="{% static 'mini_app/icon/channle_button.png' %}" alt="channle-button" class="channel-button-image">
-        </div>
-    </div>
+    {% include 'mini_app/header.html' %}
 
     <div class="search-container">
         <div class="search-box">
@@ -90,8 +76,6 @@
             </div>
             <!-- Пагинация и навигация -->
             <div class="swiper-pagination"></div>
-            <div class="swiper-button-prev"></div>
-            <div class="swiper-button-next"></div>
             </div>
 
             <h3 class="product-title">{{ product.name}}</h3>

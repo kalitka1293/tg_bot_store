@@ -34,7 +34,6 @@ def download_product_all_redis():
 
     main_product.update(dict_product)
     cache.set('products', main_product)
-    print(main_product)
     main_product.clear()
     dict_product.clear()
 

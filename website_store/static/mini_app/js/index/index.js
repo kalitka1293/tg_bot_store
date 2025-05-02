@@ -1,30 +1,4 @@
 ﻿
-
-//function createProductCard(product) {
-//    return `
-//        <div class="product-card">
-//            <input type="hidden" class="id_product" value="${product.id}">
-//            ${product.discount ? `<div class="discount-badge">${product.discount}</div>` : ''}
-//            <img src="${product.imageUrl}" alt="${product.title}" class="product-image">
-//            <div class="brand">${product.brand}</div>
-//            <h3 class="product-title">${product.title}</h3>
-//            <div class="price-container">
-//                ${product.oldPrice ? `<span class="old-price">${product.oldPrice}</span>` : ''}
-//                <span class="new-price">${product.newPrice}</span>
-//            </div>
-//            <div class="stock-status">${product.stock}</div>
-//            <button class="add-to-cart">В корзину</button>
-//        </div>
-//    `;
-//}
-
-//document.addEventListener('DOMContentLoaded', () => {
-//    const container = document.getElementById('productsContainer');
-//    if (container) {
-//        container.innerHTML = products.map(createProductCard).join('');
-//    }
-//});
-
 // Обработчик корзины
 document.addEventListener('click', (e) => {
     if (e.target.classList.contains('add-to-cart')) {

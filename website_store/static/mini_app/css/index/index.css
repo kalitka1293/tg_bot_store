@@ -133,7 +133,7 @@ body {
 
 .swiper-pagination-bullet {
     background: white !important;
-    opacity: 0.7;
+    opacity: 0.2;
 }
 
 .swiper-pagination-bullet-active {

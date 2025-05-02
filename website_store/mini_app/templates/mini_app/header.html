@@ -1,0 +1,21 @@
+{% load static %}
+
+<div class="hat">
+    <div class="main-icon">
+        <a href="{% url 'mini_app:main_menu' %}" target="_self">
+            <img src="{% static 'mini_app/icon/main-icon.png' %}" alt="main-icon" class="main-icon-image">
+        </a>
+    </div>
+
+    <div class="basket-icon">
+        <a href="{% url 'mini_app:basket' %}" target="_self">
+            <img src="{% static 'mini_app/icon/basket.png' %}" alt="basket-icon" class="basket-icon-image">
+        </a>
+    </div>
+
+    <div class="channel-button">
+        <a href="https://www.wildberries.ru/lk/basket" target="_self">
+            <img src="{% static 'mini_app/icon/channle_button.png' %}" alt="channle-button" class="channel-button-image">
+        </a>
+    </div>
+</div>
