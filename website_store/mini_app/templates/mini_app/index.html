@@ -7,13 +7,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SHOVIK STORE Bot</title>
     <link rel="stylesheet" href="{% static 'mini_app/css/index/index.css' %}" />
+    <link rel="stylesheet" href="{% static 'mini_app/css/index/scroll.css' %}" />
     <link rel="stylesheet" href="{% static 'mini_app/css/index/search.css' %}" />
+    <link rel="stylesheet" href="{% static 'mini_app/css/index/hat.css' %}" />
     <link rel="stylesheet" href="{% static 'mini_app/css/index/button_basket.css' %}" />
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
     <script src="{% static 'mini_app/js/index/index.js' %}"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
 </head>
 <body>
+    <div class="hat">
+        <div class="main-icon">
+            <a href="https://google.com" target="_self">
+                <img src="{% static 'mini_app/icon/main-icon.png' %}" alt="main-icon" class="main-icon-image">
+            </a>
+        </div>
+
+        <div class="basket-icon">
+            <img src="{% static 'mini_app/icon/basket.png' %}" alt="basket-icon" class="basket-icon-image">
+        </div>
+
+        <div class="channel-button">
+            <img src="{% static 'mini_app/icon/channle_button.png' %}" alt="channle-button" class="channel-button-image">
+        </div>
+    </div>
 
     <div class="search-container">
         <div class="search-box">
@@ -28,9 +45,35 @@
         </div>
     </div>
 
-    <div class="header">
-        <h1>SHOVIK STORE Bot</h1>
-        <p>Кондиционеры · Комплектующее</p>
+    <div class="scroll-container">
+        <div class="blocks-wrapper">
+            <a href="#link1" class="block">Популярное</a>
+            <a href="#link2" class="block">Ballu</a>
+            <a href="#link3" class="block">Elecrolux</a>
+            <a href="#link4" class="block">Блок 4</a>
+            <a href="#link5" class="block">Блок 5</a>
+            <a href="#link6" class="block">Блок 6</a>
+        </div>
+    </div>
+    
+    <div class="scroll-container-image">
+        <div class="blocks-wrapper-image">
+            <a href="#link1" class="block-image">
+                <img src="{% static 'mini_app/icon/slide1.png' %}" class="block-image">
+            </a>
+            <a href="#link1" class="block-image">
+                <img src="{% static 'mini_app/icon/slide2.png' %}" class="block-image">
+            </a>
+            <a href="#link1" class="block-image">
+                <img src="{% static 'mini_app/icon/slide3.png' %}" class="block-image">
+            </a>
+            <a href="#link1" class="block-image">
+                <img src="{% static 'mini_app/icon/slide4.png' %}" class="block-image">
+            </a>
+            <a href="#link1" class="block-image">
+                <img src="{% static 'mini_app/icon/slide5.png' %}" class="block-image">
+            </a>
+        </div>
     </div>
 
     <div class="products-grid" id="productsContainer">
@@ -66,51 +109,6 @@
         {% endfor %}
     </div>
 <div class="mobile-paginator">
-    <style>
-        .mobile-paginator {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: #ffffff;
-            padding: 15px 20px;
-            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
-            z-index: 1000;
-        }
-
-        .paginator-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 400px;
-            margin: 0 auto;
-        }
-
-        .paginator-link {
-            text-decoration: none;
-            color: #4a5568;
-            padding: 10px 15px;
-            border-radius: 8px;
-            transition: all 0.3s;
-            font-weight: 500;
-        }
-
-        .paginator-link:hover {
-            background: #f7fafc;
-        }
-
-        .paginator-link.disabled {
-            color: #cbd5e0;
-            pointer-events: none;
-        }
-
-        .page-info {
-            color: #718096;
-            font-size: 0.9em;
-            white-space: nowrap;
-        }
-    </style>
-
     <div class="paginator-content">
         {% if page_obj.has_previous %}
             <a href="?page={{ page_obj.previous_page_number }}" class="paginator-link">← Назад</a>
@@ -132,6 +130,80 @@
 
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <script>
+
+    const scrollContainer = document.querySelector('.scroll-container-image');
+const blocksWrapper = document.querySelector('.blocks-wrapper-image');
+let isDragging = false;
+let startX;
+let scrollLeft;
+
+// Touch events
+scrollContainer.addEventListener('touchstart', (e) => {
+    isDragging = true;
+    startX = e.touches[0].pageX - scrollContainer.offsetLeft;
+    scrollLeft = scrollContainer.scrollLeft;
+});
+
+scrollContainer.addEventListener('touchmove', (e) => {
+    if (!isDragging) return;
+    const x = e.touches[0].pageX - scrollContainer.offsetLeft;
+    const walk = (x - startX) * 2;
+    scrollContainer.scrollLeft = scrollLeft - walk;
+});
+
+scrollContainer.addEventListener('touchend', () => {
+    isDragging = false;
+});
+
+// Mouse events
+scrollContainer.addEventListener('mousedown', (e) => {
+    isDragging = true;
+    startX = e.pageX - scrollContainer.offsetLeft;
+    scrollLeft = scrollContainer.scrollLeft;
+    scrollContainer.style.cursor = 'grabbing';
+});
+
+scrollContainer.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+    const x = e.pageX - scrollContainer.offsetLeft;
+    const walk = (x - startX) * 3;
+    scrollContainer.scrollLeft = scrollLeft - walk;
+});
+
+scrollContainer.addEventListener('mouseup', () => {
+    isDragging = false;
+    scrollContainer.style.cursor = 'grab';
+});
+
+scrollContainer.addEventListener('wheel', (e) => {
+    e.preventDefault();
+    scrollContainer.scrollLeft += e.deltaY * 2;
+});
+
+// Initial styles
+scrollContainer.style.cursor = 'grab';
+
+
+        // Добавляем обработчик свайпа
+    let touchStartX = 0;
+    const container = document.querySelector('.scroll-container');
+
+    container.addEventListener('touchstart', e => {
+        touchStartX = e.touches[0].clientX;
+    }, false);
+
+    container.addEventListener('touchend', e => {
+        const touchEndX = e.changedTouches[0].clientX;
+        const diffX = touchStartX - touchEndX;
+
+        if(Math.abs(diffX) > 30) {
+            container.scrollBy({
+                left: diffX > 0 ? 200 : -200,
+                behavior: 'smooth'
+            });
+        }
+    }, false);
+
     // Инициализация слайдеров для всех карточек
     document.addEventListener('DOMContentLoaded', function() {
         const swipers = document.querySelectorAll('.product-swiper');
@@ -153,48 +225,5 @@
     });
 </script>
 
-<style>
-    /* Стили для слайдера */
-    .product-swiper {
-        width: 100%;
-        height: 250px;
-        margin-bottom: 15px;
-        border-radius: 8px;
-        overflow: hidden;
-    }
-
-    .swiper-slide img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-
-    .swiper-button-prev,
-    .swiper-button-next {
-        color: white;
-        background: rgba(0,0,0,0.3);
-        padding: 15px;
-        border-radius: 50%;
-        width: 40px;
-        height: 40px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .swiper-button-prev::after,
-    .swiper-button-next::after {
-        font-size: 20px;
-    }
-
-    .swiper-pagination-bullet {
-        background: white !important;
-        opacity: 0.7;
-    }
-
-    .swiper-pagination-bullet-active {
-        opacity: 1;
-    }
-</style>
 </body>
 </html>

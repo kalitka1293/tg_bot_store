@@ -1,0 +1,63 @@
+.scroll-container {
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch; /* Плавный скролл на iOS */
+    padding: 10px 0;
+    white-space: nowrap;
+}
+
+.blocks-wrapper {
+    display: inline-flex;
+    gap: 15px;
+    padding: 0 5px;
+}
+
+
+.block {
+    width: 70vw;
+    max-width: 100px;
+    height: 30px;
+    background: rgb(66,149,255);
+    border-radius: 4px;
+    backdrop-filter: blur(5px);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: transform 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-family: Arial, sans-serif;
+    text-decoration: none;
+    flex-shrink: 0;
+}
+
+.block:hover {
+    transform: translateY(-5px);
+}
+
+
+.scroll-container-image {
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding: 10px 0;
+}
+
+.scroll-container-image::-webkit-scrollbar {
+    display: none;
+}
+
+.blocks-wrapper-image {
+    display: inline-flex;
+    gap: 15px;
+    padding: 0 5px;
+}
+
+.block-image {
+    width: 30vw;
+    height: auto;
+}
+
+.block-image:hover {
+    transform: scale(1.02);
+}

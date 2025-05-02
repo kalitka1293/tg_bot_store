@@ -1,9 +1,10 @@
 ﻿/* Основные стили для контейнера поиска */
 .search-container {
     position: relative;
+    margin-top: 40px;
+    top: 0;
     width: 100%;
     max-width: 600px;
-    margin: 20px auto;
     font-family: 'Segoe UI', Arial, sans-serif;
 }
 
@@ -32,7 +33,7 @@
 /* Стили для кнопки поиска */
 .search-btn {
     position: absolute;
-    right: 5px;
+    right: 1px;
     top: 50%;
     transform: translateY(-50%);
     width: 40px;

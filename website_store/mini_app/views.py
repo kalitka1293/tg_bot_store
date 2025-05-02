@@ -6,6 +6,10 @@ from django.core.cache import cache
 
 from mini_app.redis import download_product_all_redis
 
+F = 'hat'
+
+class TestTeplateView(TemplateView):
+    template_name = f'mini_app/{F}.html'
 
 class MainMenuView(ListView):
     template_name = 'mini_app/index.html'

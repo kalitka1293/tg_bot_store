@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Горизонтальный скролл</title>
+
+</head>
+<body>
+    <div class="scroll-container">
+        <div class="blocks-wrapper">
+            <a href="#link1" class="block">Блок 1</a>
+            <a href="#link2" class="block">Блок 2</a>
+            <a href="#link3" class="block">Блок 3</a>
+            <a href="#link4" class="block">Блок 4</a>
+            <a href="#link5" class="block">Блок 5</a>
+            <a href="#link6" class="block">Блок 6</a>
+        </div>
+    </div>
+
+    <div class="scroll-container">
+        <div class="blocks-wrapper">
+            <a href="#link1" class="block-image">Блок 1</a>
+            <a href="#link2" class="block">Блок 2</a>
+            <a href="#link3" class="block">Блок 3</a>
+            <a href="#link4" class="block">Блок 4</a>
+            <a href="#link5" class="block">Блок 5</a>
+            <a href="#link6" class="block">Блок 6</a>
+        </div>
+    </div>
+
+    <script>
+        // Добавляем обработчик свайпа
+        let touchStartX = 0;
+        const container = document.querySelector('.scroll-container');
+
+        container.addEventListener('touchstart', e => {
+            touchStartX = e.touches[0].clientX;
+        }, false);
+
+        container.addEventListener('touchend', e => {
+            const touchEndX = e.changedTouches[0].clientX;
+            const diffX = touchStartX - touchEndX;
+
+            if(Math.abs(diffX) > 30) {
+                container.scrollBy({
+                    left: diffX > 0 ? 200 : -200,
+                    behavior: 'smooth'
+                });
+            }
+        }, false);
+    </script>
+</body>
+</html>

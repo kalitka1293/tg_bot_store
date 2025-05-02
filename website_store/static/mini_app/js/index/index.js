@@ -85,7 +85,7 @@ const showResults = (results) => {
     resultsContainer.innerHTML = '';
 
     if (results.length === 0) {
-        resultsContainer.innerHTML = '<div class="search-result-item">Ничего не найдено</div>';
+        resultsContainer.innerHTML = '<div class="search-result-item">Ничего не найдено. Воспользуйтесь фильтром для товаров</div>';
         return;
     }
 
