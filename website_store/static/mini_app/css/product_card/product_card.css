@@ -1,0 +1,117 @@
+* {
+    background: white;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+.body {
+background: white;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.product-main {
+    display: flex;
+    gap: 30px;
+}
+
+.gallery {
+    flex: 1;
+    max-width: 500px;
+    padding-top: 30px;
+}
+
+.main-image img {
+    width: 100%;
+    border-radius: 16px;
+}
+
+.thumbnails {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+    margin-top: 10px;
+}
+
+.thumbnail img {
+    width: 100%;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.thumbnail.active img {
+    border-color: rgba(105, 188, 255, 1);
+}
+
+.product-info {
+    flex: 1;
+    padding: 10px;
+}
+
+.price-block {
+    background: rgba(233, 245, 255, 1);
+    padding: 20px;
+    border-radius: 8px;
+    margin: 20px 0;
+}
+
+.price {
+    font-size: 32px;
+    color: #000000;
+    margin: 10px 0;
+}
+
+.buy-btn {
+    background: #000000;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 8px;
+    font-size: 18px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.details table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+.details td {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.details tr:last-child td {
+    border-bottom: none;
+}
+
+.sizes {
+    display: flex;
+    gap: 10px;
+    margin: 15px 0;
+}
+
+.size-btn {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.size-btn.selected {
+    border-color: rgba(41, 124, 226, 1);
+    background: rgba(222, 240, 255, 1);
+}
+.size-btn a {
+color: inherit;
+text-decoration: none;
+}
+
+

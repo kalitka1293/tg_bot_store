@@ -10,12 +10,12 @@ document.addEventListener('click', (e) => {
         const button = document.getElementById(ButtinId)
 
         const link = document.createElement('a');
-        link.href = 'https://docs.djangoproject.com/fr/2.2/topics/class-based-views/generic-display/';
+        link.href = "{% url 'mini_app:basket' 0 %}";
         link.className = button.className; // Сохраняем классы
         link.id = button.id; // Сохраняем ID
         link.innerText = 'Перейти в корзину';
         link.style.display = 'inline-block'; // Для корректного отображения
-        link.style.padding = '10px 10px'; // Пример стилей кнопки
+        link.style.padding = '8px 12px'; // Пример стилей кнопки
         link.style.textDecoration = 'none'; // Убираем подчеркивание
         link.style.background = "black";
 
@@ -25,7 +25,7 @@ document.addEventListener('click', (e) => {
 
         console.log('Добавляем товар ID:', productID);
 
-        axios.put('http://127.0.0.1:8000/basket/', {
+        axios.put('https://28fd232c360517.lhr.life/basket/', {
             product_id: productID,
             user: 3434,
             quantity: 1 

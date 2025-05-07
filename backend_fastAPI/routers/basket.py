@@ -14,8 +14,8 @@ async def create(data: BasketDTO.Basket, db: AsyncSession = Depends(get_db)):
 
 @router.put('/', tags=['update_basket'])
 async def update(data: BasketDTO.Basket, db: AsyncSession = Depends(get_db)):
-    return await BasketServices.update_basket(data, db)
-
+    await BasketServices.update_basket(data, db)
+    return {"status": "OK"}
 @router.delete('/', tags=['delete_basket'])
 async def delete(data: BasketDTO.Basket, db: AsyncSession = Depends(get_db)):
     return await BasketServices.delete_basket(data, db)

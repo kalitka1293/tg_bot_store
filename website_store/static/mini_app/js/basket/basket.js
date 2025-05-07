@@ -65,11 +65,15 @@ if(target.classList.contains('delete-btn')) {
 const send_basket = (productID, method, quantity) => {
     axios({
         method: method,
-        url: "http://127.0.0.1:8000/basket/",
+        url: "https://aa64f2542c2ab1.lhr.life/basket/",
         data: {
             product_id: productID,
             user: 3434,
             quantity: quantity 
+        },
+        withCredentials: true,
+        headers: {
+            "Content-Type": "application/json",
         }
     }).then(function (response) {
         console.log('Ответ сервера:', response.data);

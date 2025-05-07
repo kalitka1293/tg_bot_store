@@ -8,10 +8,15 @@ app = FastAPI()
 # Настройка безопастности требуется
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=[
+        "https://ec6210a713515c.lhr.life",  # Ваш фронтенд
+        "http://localhost:3000"             # Для локальной разработки
+    ],
     allow_credentials=True,
-    allow_methods=["*"],
+    allow_methods=["*"],                    # Явно укажите PUT, DELETE если нужно
     allow_headers=["*"],
+    expose_headers=["X-Custom-Header"],     # Если используются кастомные заголовки
+    max_age=600
 )
 
 app.include_router(BasketRouter.router, prefix='/basket')

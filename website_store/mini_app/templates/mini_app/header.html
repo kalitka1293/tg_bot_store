@@ -8,7 +8,8 @@
     </div>
 
     <div class="basket-icon">
-        <a href="{% url 'mini_app:basket' %}" target="_self">
+        <a href="#" onclick="showPopup()">
+
             <img src="{% static 'mini_app/icon/basket.png' %}" alt="basket-icon" class="basket-icon-image">
         </a>
     </div>
@@ -19,3 +20,37 @@
         </a>
     </div>
 </div>
+<script>
+Telegram.WebApp.ready();
+
+async function showPopup() {
+    const WebApp = window.Telegram.WebApp;
+    const initData = new URLSearchParams(WebApp.initData);
+    const hash = initData.get('hash');
+
+    const data = {
+        initData: WebApp.initData
+    };
+
+    try {
+        const response = await fetch(
+            "{% url 'mini_app:basket' 0 %}",
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            }
+        );
+
+        const responseData = await response.json();
+
+        if (responseData.url) {
+            window.location.href = responseData.url;
+        }
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+</script>

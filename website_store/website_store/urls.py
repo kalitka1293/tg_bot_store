@@ -21,7 +21,8 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('mini_app/', include('mini_app.urls', namespace='mini_app'))
+    path('mini_app/', include('mini_app.urls', namespace='mini_app')),
+    path('ckeditor5/', include('django_ckeditor_5.urls')),
 ]
 
 if settings.DEBUG:

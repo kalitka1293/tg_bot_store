@@ -1,9 +1,18 @@
 from django.db import models
 from django.core.files import File
+from django_ckeditor_5.fields import CKEditor5Field
+from django.contrib.auth.models import AbstractUser
+from django.core.validators import RegexValidator
 
 from PIL import Image
 import uuid
 from io import BytesIO
+
+
+# class StoreUser(AbstractUser):
+#     uuid = models.UUIDField(unique=True, editable=False)
+#     telegram_id = models.IntegerField(max_length=12)
+#     telegram_username = models.CharField()
 
 class Country(models.Model):
     country = models.CharField(max_length=256)
@@ -127,3 +136,35 @@ class Basket(models.Model):
 
     def __str__(self):
         return self.product.name
+
+
+class Article(models.Model):
+    title = models.CharField(max_length=200, verbose_name="Заголовок")
+    image = models.ImageField(upload_to='article/', verbose_name='Изображение статьи')
+    content = CKEditor5Field(verbose_name='Полное описание', config_name='extends')
+    show_counter = models.IntegerField(verbose_name='Счетчик показов статьи', null=True)
+
+    def __str__(self):
+        return self.title
+
+
+class Order(models.Model):
+    first_name = models.CharField('Имя', max_length=50)
+    last_name = models.CharField('Фамилия', max_length=50)
+    email = models.EmailField('Email')
+    phone = models.CharField('Телефон', max_length=20, validators=[
+        RegexValidator(
+            regex=r'^\+?1?\d{9,15}$',
+            message="Формат: '+999999999'. До 15 цифр."
+        )
+    ])
+    address = models.CharField('Адрес', max_length=250)
+    city = models.CharField('Город', max_length=100)
+    created = models.DateTimeField('Создан', auto_now_add=True)
+
+    class Meta:
+        verbose_name = 'Заказ'
+        verbose_name_plural = 'Заказы'
+
+    def __str__(self):
+        return f'Заказ {self.id}, {self.created}'

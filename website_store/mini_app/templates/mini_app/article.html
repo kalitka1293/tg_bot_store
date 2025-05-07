@@ -1,10 +1,114 @@
+{% load static %}
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Статья</title>
+    <link rel="stylesheet" href="{% static 'mini_app/css/index/hat.css' %}" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            padding-top: 40px;
+            line-height: 1.2;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 20px;
+            margin-top: 0;
+        }
+
+        .article-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #333;
+            line-height: 1.2;
+        }
+
+        .article-image {
+            width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
+
+        .article-content {
+            font-size: 20px;
+            color: #444;
+            margin-bottom: 30px;
+        }
+
+        .article-content p {
+            margin-bottom: 5px;
+        }
+
+        .read-more-btn {
+            display: block;
+            width: 200px;
+            margin: 0 auto;
+            padding: 15px 20px;
+            background-color: #000;
+            color: #fff;
+            text-align: center;
+            text-decoration: none;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .read-more-btn:hover {
+            background-color: #333;
+        }
+
+        @media (min-width: 768px) {
+            body {
+                padding-top: 50px; /* Увеличиваем отступ для десктопов */
+            }
+            .container {
+                max-width: 720px;
+                padding: 30px 20px;
+            }
+
+            .article-title {
+                font-size: 28px;
+            }
+        }
+    </style>
 </head>
 <body>
-$END$
+    {% include 'mini_app/header.html' %}
+    <div class="container">
+
+        <h1 class="article-title">{{ object.title }}</h1>
+
+        <img src="{{ object.image.url }}" alt="Иллюстрация статьи" class="article-image">
+
+        <div class="article-content">
+            {{ object.content|safe }}
+        </div>
+        <a href="{% url 'mini_app:main_menu' %}" target="_self">
+            <button class="read-more-btn">Каталог</button>
+        </a>
+    </div>
+
+    <script>
+<!--        document.querySelector('.read-more-btn').addEventListener('click', function() {-->
+<!--            alert('Кнопка работает! Добавьте свою логику обработки.');-->
+<!--        });-->
+    </script>
 </body>
 </html>

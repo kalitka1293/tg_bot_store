@@ -11,16 +11,18 @@ router = Router()
 
 #pydantic_settings
 
+def get_miniapp_keyboard():
+    return types.InlineKeyboardMarkup(inline_keyboard=[
+        [types.InlineKeyboardButton(
+            text="Открыть Mini App",
+            web_app=types.WebAppInfo(url="https://dba035e5acca98.lhr.life/mini_app/menu")
+        )]
+    ])
+
 @router.message(Command('start'))
 async def start(message: types.Message | CallbackQuery):
-    wb = WebAppInfo(url='https://e3035e97461c6c.lhr.life/mini_app/menu/')
-
-    b = types.KeyboardButton(text='lol', web_app=wb)
-    markup = types.ReplyKeyboardMarkup(keyboard=[[b]])
 
     await message.answer(
         "Welcome to my Mini App!",
-        reply_markup=markup
+        reply_markup=get_miniapp_keyboard()
     )
-
-    await message.answer('Ты опять меня запустил?')

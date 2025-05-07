@@ -1,14 +1,30 @@
 from django.shortcuts import render
 from django.views.generic.base import TemplateView
 from django.views.generic.list import ListView
-from mini_app.models import Product, Basket
 from django.core.cache import cache
+from django.views.generic.detail import DetailView
+from django.http import JsonResponse
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_exempt
+from django.views.generic.edit import CreateView
+from django.urls import reverse_lazy
 
 from mini_app.redis import download_product_all_redis
+from mini_app.models import Product, Basket, Article, Order
+from mini_app.forms import OrderCreateForm
 
-F = 'hat'
+from common.webappTelegram import check_webapp_signature, parse_init_data
 
-class TestTeplateView(TemplateView):
+import json
+
+
+F = 'test'
+
+@csrf_exempt
+def test_view(request):
+    pass
+
+class TestTemplateView(TemplateView):
     template_name = f'mini_app/{F}.html'
 
 class MainMenuView(ListView):
@@ -32,12 +48,26 @@ class ProductCardView(TemplateView):
         print(context)
         return context
 
+@method_decorator(csrf_exempt, name='dispatch')
 class BasketView(TemplateView):
     template_name = 'mini_app/basket.html'
 
-    def get_context_data(self, **kwargs):
-        user = 3434
+    def post(self, request, *args, **kwargs):
+        init_data = json.loads(request.body)['initData']
 
+        #Токен убрать в безопасное место
+        result = check_webapp_signature(init_data, '6938844148:AAGUItfOaLAUE2pjj9ZlGEe-BZeizNnoqJM')
+        if not result:
+            raise ValueError(init_data)
+            #return JsonResponse({'status': 'Not valid'},status=403)
+        data_user_telegram = parse_init_data(init_data)
+        telegram_id = data_user_telegram['user']['id']
+        # request['PATH_INFO'] = '/mini_app/article/2'
+        # print(request['PATH_INFO'])
+        return JsonResponse({'url': f'/mini_app/basket/{telegram_id}'})
+
+    def get_context_data(self, **kwargs):
+        user = kwargs.get('telegram_id')
         download_product_all_redis()
         context = super().get_context_data(**kwargs)
         list_id_product = Basket.objects.filter(user=user).values_list('product_id', 'quantity')
@@ -56,4 +86,20 @@ class BasketView(TemplateView):
         for product in list_product:
             total_sum += product['price'] * product['quantity']
         return total_sum
+
+class ArticleView(DetailView):
+    template_name = 'mini_app/article.html'
+    model = Article
+
+
+class FormPayView(CreateView):
+    model = Order
+    template_name = 'mini_app/form_pay.html'
+    form_class = OrderCreateForm
+    success_url = reverse_lazy('mini_app:main_menu')
+    # success_message = 'Ты успешно зарегистрирован!!!'
+
+
+# class FormPayView(TemplateView):
+#     template_name = 'mini_app/form_pay.html'
 

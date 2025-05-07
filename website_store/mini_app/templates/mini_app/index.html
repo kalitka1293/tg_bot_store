@@ -14,6 +14,9 @@
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
     <script src="{% static 'mini_app/js/index/index.js' %}"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600&family=Space+Grotesk:wght@500&display=swap" rel="stylesheet">
+
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
     {% include 'mini_app/header.html' %}
@@ -44,19 +47,19 @@
     
     <div class="scroll-container-image">
         <div class="blocks-wrapper-image">
-            <a href="#link1" class="block-image">
+            <a href="{% url 'mini_app:article' 2 %}" class="block-image">
                 <img src="{% static 'mini_app/icon/slide1.png' %}" class="block-image">
             </a>
-            <a href="#link1" class="block-image">
+            <a href="{% url 'mini_app:article' 3 %}" class="block-image">
                 <img src="{% static 'mini_app/icon/slide2.png' %}" class="block-image">
             </a>
-            <a href="#link1" class="block-image">
+            <a href="{% url 'mini_app:article' 4 %}" class="block-image">
                 <img src="{% static 'mini_app/icon/slide3.png' %}" class="block-image">
             </a>
-            <a href="#link1" class="block-image">
+            <a href="{% url 'mini_app:article' 5 %}" class="block-image">
                 <img src="{% static 'mini_app/icon/slide4.png' %}" class="block-image">
             </a>
-            <a href="#link1" class="block-image">
+            <a href="{% url 'mini_app:article' 6 %}" class="block-image">
                 <img src="{% static 'mini_app/icon/slide5.png' %}" class="block-image">
             </a>
         </div>
@@ -70,16 +73,18 @@
             <div class="swiper-wrapper">
                 {% for image in product.images_product %}
                 <div class="swiper-slide">
-                    <img src="{{ image }}" alt="{{ product.name }}" class="product-image">
+                    <a href="{% url 'mini_app:product_card' product.id %}" class="product-image">
+                        <img src="{{ image }}" alt="{{ product.name }}" class="product-image">
+                    </a>
                 </div>
                 {% endfor %}
             </div>
             <!-- Пагинация и навигация -->
             <div class="swiper-pagination"></div>
             </div>
-
-            <h3 class="product-title">{{ product.name}}</h3>
-            <a href="{% url 'mini_app:product_card' product.id %}">Link</a>
+            <a href="{% url 'mini_app:product_card' product.id %}" class="product-link">
+                <h3 class="product-title">{{ product.name }}</h3>
+            </a>
             <div class="brand">{{ product.brand.brand }}</div>
             <div class="price-container">
 
@@ -114,7 +119,6 @@
 
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <script>
-
     const scrollContainer = document.querySelector('.scroll-container-image');
 const blocksWrapper = document.querySelector('.blocks-wrapper-image');
 let isDragging = false;
