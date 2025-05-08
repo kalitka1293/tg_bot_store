@@ -2,7 +2,7 @@ import os
 
 from celery import Celery
 
-from mini_app.tasks import consumer_basket_rabbit
+# from mini_app.tasks import consumer_basket_rabbit
 
 from django.apps import apps
 
@@ -21,4 +21,4 @@ app.config_from_object('django.conf:settings', namespace='CELERY')
 app.autodiscover_tasks()
 
 # Запуск Фоновой задачи для прослушивания сообщений
-consumer_basket_rabbit.delay()
+# consumer_basket_rabbit.delay()

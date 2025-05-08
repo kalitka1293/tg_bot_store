@@ -2,3 +2,5 @@
 __pycache__/
 .idea/
 .vs
+./venv-ms
+./venv-django

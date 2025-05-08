@@ -1,8 +1,9 @@
 from django.contrib import admin
 from mini_app.models import (Country, Product, ParameterProduct,
                              SubcategoryProduct, TypeEquipment, Brand,
-                             Basket, ProductImage, ReviewProduct, Article,
-                             Order)
+                     ProductImage, ReviewProduct, Article,
+                            )
+from order.models import Basket, Order
 
 
 admin.site.register(Basket)

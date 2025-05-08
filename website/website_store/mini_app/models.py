@@ -129,14 +129,6 @@ class ReviewProduct(models.Model):
     comment = models.CharField()
     rating = models.SmallIntegerField()
 
-class Basket(models.Model):
-    product = models.ForeignKey(to=Product, on_delete=models.CASCADE)
-    user = models.IntegerField()
-    quantity = models.SmallIntegerField()
-
-    def __str__(self):
-        return self.product.name
-
 
 class Article(models.Model):
     title = models.CharField(max_length=200, verbose_name="Заголовок")
@@ -148,23 +140,3 @@ class Article(models.Model):
         return self.title
 
 
-class Order(models.Model):
-    first_name = models.CharField('Имя', max_length=50)
-    last_name = models.CharField('Фамилия', max_length=50)
-    email = models.EmailField('Email')
-    phone = models.CharField('Телефон', max_length=20, validators=[
-        RegexValidator(
-            regex=r'^\+?1?\d{9,15}$',
-            message="Формат: '+999999999'. До 15 цифр."
-        )
-    ])
-    address = models.CharField('Адрес', max_length=250)
-    city = models.CharField('Город', max_length=100)
-    created = models.DateTimeField('Создан', auto_now_add=True)
-
-    class Meta:
-        verbose_name = 'Заказ'
-        verbose_name_plural = 'Заказы'
-
-    def __str__(self):
-        return f'Заказ {self.id}, {self.created}'

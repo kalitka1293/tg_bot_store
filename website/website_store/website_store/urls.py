@@ -23,6 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('mini_app/', include('mini_app.urls', namespace='mini_app')),
     path('ckeditor5/', include('django_ckeditor_5.urls')),
+    path('order/', include('order.urls', namespace='order')),
 ]
 
 if settings.DEBUG:

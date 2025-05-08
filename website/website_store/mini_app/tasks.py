@@ -1,13 +1,7 @@
 from celery import shared_task
 
-import sys
-import os
-# Добавляем корень проекта в sys.path
-project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
-if project_root not in sys.path:
-    sys.path.append(project_root)
 
-from rabbitmq_common_code.consumer import ConsumerRabbit  # Правильный абсолютный импорт
+from rabbitmq_common_code.consumer import ConsumerRabbit
 from rabbitmq_common_code.config_common import BASKET_QUEUE
 
 from django.apps import apps
@@ -30,3 +24,5 @@ def consumer_basket_rabbit():
         print('Не запущен Rabbit')
         return
     consumer_basket.consumer()
+
+consumer_basket_rabbit.delay()

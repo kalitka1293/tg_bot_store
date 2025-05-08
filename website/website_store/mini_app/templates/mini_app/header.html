@@ -8,14 +8,14 @@
     </div>
 
     <div class="basket-icon">
-        <a href="#" onclick="showPopup()">
+        <a href="{% url 'order:basket' 0 %}" >
 
             <img src="{% static 'mini_app/icon/basket.png' %}" alt="basket-icon" class="basket-icon-image">
         </a>
     </div>
 
     <div class="channel-button">
-        <a href="https://www.wildberries.ru/lk/basket" target="_self">
+        <a href="javascript:Telegram.WebApp.openTelegramLink('https://t.me/shoviki');" target="_self">
             <img src="{% static 'mini_app/icon/channle_button.png' %}" alt="channle-button" class="channel-button-image">
         </a>
     </div>
@@ -34,7 +34,7 @@ async function showPopup() {
 
     try {
         const response = await fetch(
-            "{% url 'mini_app:basket' 0 %}",
+            "{% url 'order:basket' 0 %}",
             {
                 method: 'POST',
                 headers: {

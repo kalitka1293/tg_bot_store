@@ -63,6 +63,7 @@ INSTALLED_APPS = [
 
     'django_ckeditor_5',
 
+    'order',
     'mini_app',
 ]
 
@@ -105,7 +106,7 @@ DATABASES = {
         "NAME": "tg_store",
         "USER": "tg",
         "PASSWORD": "tg",
-        "HOST": "localhost",
+        "HOST": "db",
         "PORT": "5432",
     }
 }
