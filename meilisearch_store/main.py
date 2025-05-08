@@ -1,11 +1,6 @@
 from app import client
 from dowload_data_meilisearch import add_one_data_product, add_all_data_product
 
-import sys
-import os
-project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-if project_root not in sys.path:
-    sys.path.append(project_root)
 from rabbitmq_common_code.consumer import ConsumerRabbit
 from rabbitmq_common_code.config_common import PRODUCT_MEILISEARCH, FASTAPI_QUEUE
 

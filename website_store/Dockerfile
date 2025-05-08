@@ -1,13 +1,16 @@
 FROM python:3.10.0
 
+ENV PYTHONUNBUFFERED=1
+ENV DJANGO_SETTINGS_MODULE=website_store.settings
+
 RUN mkdir -p /usr/backend/django 
 WORKDIR /usr/backend/django
 
-COPY website_store/requirements.txt /requirements.txt
+COPY requirements.txt /requirements.txt
 
 RUN pip install -r /requirements.txt
 
-COPY library/rabbitmq_code /tmp/rabbitmq_code
+COPY rabbitmq_code /tmp/rabbitmq_code
 
 RUN pip install /tmp/rabbitmq_code
 

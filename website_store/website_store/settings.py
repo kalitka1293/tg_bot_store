@@ -106,7 +106,7 @@ DATABASES = {
         "NAME": "tg_store",
         "USER": "tg",
         "PASSWORD": "tg",
-        "HOST": "db",
+        "HOST": "host.docker.internal",
         "PORT": "5432",
     }
 }
@@ -165,7 +165,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://127.0.0.1:6379/1",
+        "LOCATION": "redis://host.docker.internal:6379/1",
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
         }
