@@ -8,7 +8,7 @@
     </div>
 
     <div class="basket-icon">
-        <a href="{% url 'order:basket' 0 %}" >
+        <a href="{% url 'order:basket' %}" >
 
             <img src="{% static 'mini_app/icon/basket.png' %}" alt="basket-icon" class="basket-icon-image">
         </a>
@@ -20,37 +20,25 @@
         </a>
     </div>
 </div>
+
 <script>
-Telegram.WebApp.ready();
-
-async function showPopup() {
-    const WebApp = window.Telegram.WebApp;
-    const initData = new URLSearchParams(WebApp.initData);
-    const hash = initData.get('hash');
-
-    const data = {
-        initData: WebApp.initData
+  window.API_URLS = {
+    getToken: "{% url 'token:get' %}"
+  };
+  window.URL_SITE = {
+    main_page: "{% url 'mini_app:main_menu' %}",
+    basket: "{% url 'order:basket' %}",
+    form_pay: "{% url 'order:form_pay' %}"
+  };
+    window.URL_FASTAPI = {
+        url: 'http://127.0.0.1:8000'
     };
+    Telegram.WebApp.ready();
+    const WebApp = window.Telegram.WebApp;
 
-    try {
-        const response = await fetch(
-            "{% url 'order:basket' 0 %}",
-            {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            }
-        );
-
-        const responseData = await response.json();
-
-        if (responseData.url) {
-            window.location.href = responseData.url;
-        }
-    } catch (error) {
-        console.error('Error:', error);
-    }
-}
+        window.INIT_DATA = {
+<!--        initData: WebApp.initData-->
+        initData: 'query_id=AAHdF6IQAAAAAN0XohDhrOr8&user=%7B%22id%22%3A279058397%2C%22first_name%22%3A%22John%22%2C%22last_name%22%3A%22Doe%22%2C%22username%22%3A%22johndoe%22%2C%22language_code%22%3A%22en%22%7D&auth_date=1653041776&hash=c501b8e0a6b38d4e9e9a82ae8816f0a9d8a9c9e0e6a9e6a9e6a9e6a9e6a9e6a9'
+    };
 </script>
+

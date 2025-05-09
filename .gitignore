@@ -4,3 +4,4 @@ __pycache__/
 .vs
 venv-ms/
 venv-django/
+venv-fast/

@@ -1,0 +1,67 @@
+!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Корзина Wildberries</title>
+</head>>
+<body>
+    {% csrf_token %}
+    <button onclick="showPopup()">click me</button>
+    <button onclick="showPopupToken()">click get token</button>
+</body>
+
+<script>
+
+    function getCookie(name) {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop().split(';').shift();
+}
+async function showPopup() {
+    try {
+        const response = await fetch('http://127.0.0.1:8000/token_jwt/lol', {
+            method: 'PUT',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            data: {dfg: 'dafga'}
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        console.log('Response:', data);
+        return data;
+    } catch (error) {
+        console.error('Fetch error:', error);
+        throw error;
+    }
+}
+
+async function showPopupToken() {
+    const data = {
+    initData: 'query_id=AAHdF6IQAAAAAN0XohDhrOr8&user=%7B%22id%22%3A279058397%2C%22first_name%22%3A%22John%22%2C%22last_name%22%3A%22Doe%22%2C%22username%22%3A%22johndoe%22%2C%22language_code%22%3A%22en%22%7D&auth_date=1653041776&hash=c501b8e0a6b38d4e9e9a82ae8816f0a9d8a9c9e0e6a9e6a9e6a9e6a9e6a9e6a9'
+};
+    try {
+        const response = await fetch(
+            '{% url "token:get" %}',
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data),
+                credentials: 'include'
+            }
+        );
+        console.log('Response:', await response.json());
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+</script>
+</html>

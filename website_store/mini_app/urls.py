@@ -1,4 +1,5 @@
 from django.urls import path
+from django.urls import re_path
 from mini_app.views import MainMenuView, ProductCardView, TestTemplateView, ArticleView, test_view
 
 app_name = 'mini_app'

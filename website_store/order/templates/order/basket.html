@@ -7,8 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Корзина Wildberries</title>
     <link rel="stylesheet" href="{% static 'mini_app/css/index/hat.css' %}" />
-    <link rel="stylesheet" href="{% static 'mini_app/css/basket/basket.css' %}" />
-    <script src="{% static 'mini_app/js/basket/basket.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'order/css/basket.css' %}" />
+    <script src="{% static 'order/js/basket.js' %}"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
 
@@ -56,12 +56,12 @@
                 {% endif %}
             </div>
             {% if products %}
-            <a href="http://127.0.0.1:8080/mini_app/menu" class="a-checkout-btn">
+            <a href="{% url 'order:form_pay' %}" class="a-checkout-btn">
                 <button href="http://google.com" class="checkout-btn">Перейти к оформлению</button>
             </a>
             {% else %}
 
-            <a href="http://127.0.0.1:8080/mini_app/menu" class="a-checkout-btn">
+            <a href="{% url 'mini_app:main_page' %}" class="a-checkout-btn">
                 <button href="http://google.com" class="checkout-btn">Перейти к каталогу товаров</button>
             </a>
             {% endif %}

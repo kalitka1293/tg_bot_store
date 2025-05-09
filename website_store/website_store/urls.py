@@ -24,6 +24,7 @@ urlpatterns = [
     path('mini_app/', include('mini_app.urls', namespace='mini_app')),
     path('ckeditor5/', include('django_ckeditor_5.urls')),
     path('order/', include('order.urls', namespace='order')),
+    path('token/', include('jwt_custom.urls', namespace='token'))
 ]
 
 if settings.DEBUG:

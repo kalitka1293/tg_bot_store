@@ -65,6 +65,7 @@ INSTALLED_APPS = [
 
     'order',
     'mini_app',
+    'jwt_custom',
 ]
 
 MIDDLEWARE = [
@@ -106,7 +107,7 @@ DATABASES = {
         "NAME": "tg_store",
         "USER": "tg",
         "PASSWORD": "tg",
-        "HOST": "host.docker.internal",
+        "HOST": "localhost",
         "PORT": "5432",
     }
 }
@@ -161,11 +162,11 @@ MEDIA_ROOT = BASE_DIR / 'media'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Redis
-
+#"LOCATION": "redis://host.docker.internal:6379/1",
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://host.docker.internal:6379/1",
+        "LOCATION": "redis://127.0.0.1:6379/1",
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
         }

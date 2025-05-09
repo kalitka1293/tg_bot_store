@@ -1,5 +1,3 @@
-from rabbitmq_common_code.common.webappTelegram import check_webapp_signature, parse_init_data
-from order.forms import OrderCreateForm
 from django.views.generic.edit import CreateView
 from django.urls import reverse_lazy
 from django.views.generic.base import TemplateView
@@ -8,18 +6,28 @@ from django.core.cache import cache
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic.list import ListView
-from django.http import JsonResponse
+from django.urls import reverse_lazy, reverse
+from django.shortcuts import HttpResponseRedirect
+
+
+from order.forms import OrderCreateForm
 from mini_app.redis import download_product_all_redis
+from jwt_custom.service import validation_authorization_get_current_user
+
+from rabbitmq_common_code.common.webappTelegram import check_webapp_signature, parse_init_data
 
 from order.models import Order, Basket
 import json
 
 class FormPayView(CreateView):
     model = Order
-    template_name = 'mini_app/form_pay.html'
+    template_name = 'order/form_pay.html'
     form_class = OrderCreateForm
     success_url = reverse_lazy('mini_app:main_menu')
     # success_message = 'Ты успешно зарегистрирован!!!'
+
+    # def form_valid(self, form):
+    #     form.
 
 class OrdersListView(ListView):
     template_name = 'mini_app/orders.html'
@@ -42,27 +50,22 @@ class OrderDetailView(DetailView):
 
 @method_decorator(csrf_exempt, name='dispatch')
 class BasketView(TemplateView):
-    template_name = 'mini_app/basket.html'
+    template_name = 'order/basket.html'
 
-    def post(self, request, *args, **kwargs):
-        init_data = json.loads(request.body)['initData']
-
-        #Токен убрать в безопасное место
-        result = check_webapp_signature(init_data, '6938844148:AAGUItfOaLAUE2pjj9ZlGEe-BZeizNnoqJM')
-        if not result:
-            raise ValueError(init_data)
-            #return JsonResponse({'status': 'Not valid'},status=403)
-        data_user_telegram = parse_init_data(init_data)
-        telegram_id = data_user_telegram['user']['id']
-        # request['PATH_INFO'] = '/mini_app/article/2'
-        # print(request['PATH_INFO'])
-        return JsonResponse({'url': f'/mini_app/basket/{telegram_id}'})
-
+    def get(self, request, *args, **kwargs):
+        cookie = request.COOKIES.get('Authorization', None)
+        result = validation_authorization_get_current_user(cookie)
+        if not result or result is None:
+            return HttpResponseRedirect(reverse_lazy('mini_app:main_menu'))
+        self.telegram_id = result
+        return super().get(self, request, *args, **kwargs)
     def get_context_data(self, **kwargs):
-        user = kwargs.get('telegram_id')
+        user = self.telegram_id
+        print('USER, ', user)
         download_product_all_redis()
         context = super().get_context_data(**kwargs)
         list_id_product = Basket.objects.filter(user=user).values_list('product_id', 'quantity')
+        print(list_id_product)
         list_product = []
         for item in list_id_product:
             product_id, product_quantity = str(item[0]), item[1]

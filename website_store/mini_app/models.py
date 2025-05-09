@@ -9,10 +9,12 @@ import uuid
 from io import BytesIO
 
 
-# class StoreUser(AbstractUser):
-#     uuid = models.UUIDField(unique=True, editable=False)
-#     telegram_id = models.IntegerField(max_length=12)
-#     telegram_username = models.CharField()
+class StoreUser(models.Model):
+    telegram_id = models.IntegerField()
+    telegram_username = models.CharField()
+    telegram_first_name = models.CharField(null=True)
+    telegram_last_name = models.CharField(null=True)
+    created = models.DateTimeField(auto_created=True)
 
 class Country(models.Model):
     country = models.CharField(max_length=256)
@@ -102,7 +104,6 @@ class ProductImage(models.Model):
             original_name = self.image.name
             print('original_name', original_name, '\n\n')
             self.image.name = self.generate_unique_name()
-
             # Сжатие и оптимизация изображения
             compressed_image = self.compress(self.image)
             self.image.save(
@@ -110,16 +111,12 @@ class ProductImage(models.Model):
                 compressed_image.file,
                 save=False
             )
-
         super().save(
         *args,
         force_insert=False,
         force_update=False,
         using=None,
         update_fields=None,)
-
-
-
     def __str__(self):
         return self.product.name
 

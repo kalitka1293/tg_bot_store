@@ -9,7 +9,9 @@ from mini_app.redis import download_product_all_redis
 from mini_app.models import Product, Article
 
 
-F = 'test'
+F = 'test_fastapi'
+
+
 
 @csrf_exempt
 def test_view(request):
@@ -22,7 +24,6 @@ class MainMenuView(ListView):
     template_name = 'mini_app/index.html'
     model = Product #redis
     paginate_by = 10
-
 
     def get_queryset(self):
         download_product_all_redis()

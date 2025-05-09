@@ -10,7 +10,7 @@ document.addEventListener('click', (e) => {
         const button = document.getElementById(ButtinId)
 
         const link = document.createElement('a');
-        link.href = "{% url 'mini_app:basket' 0 %}";
+        link.href = window.URL_SITE.basket;
         link.className = button.className; // Сохраняем классы
         link.id = button.id; // Сохраняем ID
         link.innerText = 'Перейти в корзину';
@@ -25,16 +25,30 @@ document.addEventListener('click', (e) => {
 
         console.log('Добавляем товар ID:', productID);
 
-        axios.put('https://28fd232c360517.lhr.life/basket/', {
-            product_id: productID,
-            user: 3434,
-            quantity: 1 
+        axios({
+            method: 'PUT',
+            url: `${window.URL_FASTAPI.url}/basket`,
+            data: {
+                product_id: productID,
+                quantity: 1
+            },
+            withCredentials: true,
+            headers: {
+                "Content-Type": "application/json",
+            }
+        }).then(function (response) {
+            console.log('Ответ сервера:', response.status);
         })
-            .then(function (response) {
-                console.log('Ответ сервера:', response.data);
-            })
             .catch(function (error) {
-                console.error('Ошибка:', error);
+                const e = error.response.data.type;
+                if (error.response.status === 401) {
+                    window.location.replace(window.URL_SITE.main_page);
+                    alert(e)
+                } else {
+                    window.location.replace(window.URL_SITE.main_page);
+                    alert(e)
+                }
+                console.error('Ошибка:', error.response.status);
             });
     }
 });

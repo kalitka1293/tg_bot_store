@@ -1,5 +1,6 @@
 from django import forms
 from order.models import Order
+from django.core.validators import RegexValidator
 
 class OrderCreateForm(forms.ModelForm):
     class Meta:
@@ -7,7 +8,7 @@ class OrderCreateForm(forms.ModelForm):
         fields = ['first_name', 'last_name', 'email', 'phone', 'address', 'city']
         widgets = {
             'phone': forms.TextInput(attrs={
-                'pattern': r'^\+?1?\d{9,15}$',
-                'placeholder': '+79991234567'
+                'pattern': r'^\+?[\d\s\-()]{8,20}$|^(?:\+?\d\s?){6,14}\d$',
+                'placeholder': '+7 999 123-45-67'
             }),
         }
