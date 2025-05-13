@@ -1,5 +1,5 @@
+from jsonschema import ValidationError, validate
 from pika import ConnectionParameters
-from jsonschema import validate, ValidationError
 
 # Здесь содержаться очереди которые создаются и прослушиваются
 BASKET_QUEUE = 'basket'
@@ -24,7 +24,7 @@ class ConnectValidRabbit:
     def get_schema(self):
         match self.schema:
             case 'basket':
-                return {"type": "object","properties": {"user": {"type": "number"},"product_id": {"type": "number"},"quantity": {"type": "number"}, "action":{"type":"string"}}, "required": ["user", "product_id", "quantity", "action"], "additionalProperties": False }
+                return {"type": "object","properties": {"user": {"type": "number"}, "product_id": {"type": "number"},"quantity": {"type": "number"}, "action":{"type": "string"}}, "required": ["user", "product_id", "quantity", "action"], "additionalProperties": False }
             case 'add_data_meiliseacrh':
                 return {"type": "object","properties": {"product_id":{"type":"number"}, "type":{"type":"string"}, "index": {"type":"string"}}, "required": ["product_id", "type", "index"], "additionalProperties": False }
             case 'fastapi_meilisearch':

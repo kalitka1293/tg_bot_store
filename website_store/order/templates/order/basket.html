@@ -29,7 +29,9 @@
             <div class="cart-item">
                 <div class="item-content">
                     <!-- Новый контейнер -->
-                    <img src="{{ product.images_product.0 }}" class="item-image" alt="{{ product.name }}">
+                    <a href="{% url 'mini_app:product_card' product.id %}">
+                        <img src="{{ product.images_product.0 }}" class="item-image" alt="{{ product.name }}">
+                    </a>
                     <div class="item-info">
                         <input type="hidden" class="price_product" value="{{ product.price }}" />
                         <div class="item-price">{{ product.sum }} ₽</div>
@@ -61,7 +63,7 @@
             </a>
             {% else %}
 
-            <a href="{% url 'mini_app:main_page' %}" class="a-checkout-btn">
+            <a href="{% url 'mini_app:main_menu' %}" class="a-checkout-btn">
                 <button href="http://google.com" class="checkout-btn">Перейти к каталогу товаров</button>
             </a>
             {% endif %}

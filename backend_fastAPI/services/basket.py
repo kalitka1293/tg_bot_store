@@ -1,15 +1,16 @@
-from models.basket import Basket
-from sqlalchemy.ext.asyncio import AsyncSession
 from dto import basket
-
-from sqlalchemy.future import select
-
-from rabbitmq_common_code.producer import ProducerRabbit  # Правильный абсолютный импорт
-from rabbitmq_common_code.config_common import BASKET_QUEUE
 from fastapi import status
 from fastapi.responses import JSONResponse
+from models.basket import Basket
+from rabbitmq_common_code.config_common import BASKET_QUEUE
+from rabbitmq_common_code.producer import \
+    ProducerRabbit  # Правильный абсолютный импорт
+from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.future import select
+
 
 producer_rabbit = ProducerRabbit(BASKET_QUEUE, 'basket')
+
 
 async def create_basket(data: basket.Basket, db: AsyncSession, telegram_id: int):
     baskets = Basket(
@@ -29,9 +30,13 @@ async def create_basket(data: basket.Basket, db: AsyncSession, telegram_id: int)
             }
         )
 
+
 async def update_basket(data: basket.Basket, db: AsyncSession, telegram_id: int):
     try:
-        result = await db.execute(select(Basket).where((Basket.user==telegram_id) & (Basket.product_id==data.product_id)))
+        result = await db.execute(select(Basket)
+                                  .where(
+                                    (Basket.user == telegram_id) & (Basket.product_id == data.product_id))
+                                        )
         user = result.scalars().first()
         if user is None:
             await create_basket(data, db, telegram_id)
@@ -62,6 +67,7 @@ async def update_basket(data: basket.Basket, db: AsyncSession, telegram_id: int)
             }
         )
 
+
 async def delete_basket(data: basket.Basket, db: AsyncSession, telegram_id: int):
     try:
         result = await db.execute(select(Basket).where(Basket.user == telegram_id and Basket.product_id == data.product_id))
@@ -77,4 +83,3 @@ async def delete_basket(data: basket.Basket, db: AsyncSession, telegram_id: int)
                 "type": "Database Error"
             }
         )
-

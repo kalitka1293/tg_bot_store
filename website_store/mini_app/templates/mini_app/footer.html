@@ -1,0 +1,105 @@
+{% load static %}
+
+{% load static %}
+    <style>
+        .digital-pagination {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            margin-bottom: 30px;
+            padding: 8px;
+            background: #1a365d; /* Темно-синий фон */
+            border-radius: 30px;
+            box-shadow: 0 4px 15px rgba(26, 54, 93, 0.3);
+        }
+
+        .digital-btn {
+            width: 20px;
+            height: 20px;
+            border: none;
+            background: #2a4d7a; /* Средний синий */
+            color: #c7d8f0;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .digital-btn:hover {
+            background: #3c6ba3; /* Светло-синий */
+            transform: rotate(90deg) scale(1.1);
+        }
+
+        .digital-numbers {
+            display: flex;
+            gap: 5px;
+        }
+
+        .digital-number {
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: #2a4d7a; /* Средний синий */
+            color: #c7d8f0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: Arial, sans-serif;
+        }
+
+        .digital-number.active {
+            background: #4d8ccc; /* Акцентный синий */
+            color: #fff;
+            transform: scale(1.2);
+            box-shadow: 0 0 10px rgba(77, 140, 204, 0.3);
+        }
+
+        .digital-number:hover:not(.active) {
+            background: #3c6ba3; /* Светло-синий */
+        }
+    </style>
+</head>
+<body>
+    <div class="digital-pagination">
+        <button class="digital-btn">&lt;</button>
+        <div class="digital-numbers">
+            {% for page in page_obj.paginator.page_range %}
+                <div class="digital-number {% if page == page_obj.number %}active{% endif %}">
+                    {{ page }}
+                </div>
+            {% endfor %}
+        </div>
+        <button class="digital-btn">&gt;</button>
+    </div>
+
+    <script>
+        // Обработчики для Django-пагинации
+        document.querySelectorAll('.digital-number').forEach(item => {
+            item.addEventListener('click', function() {
+                window.location.href = `?page=${this.textContent.trim()}`;
+            });
+        });
+
+        document.querySelectorAll('.digital-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const currentPage = {{ page_obj.number }};
+                const totalPages = {{ page_obj.paginator.num_pages }};
+                let newPage = currentPage;
+
+                if(this.textContent === '>') {
+                    newPage = Math.min(currentPage + 1, totalPages);
+                } else {
+                    newPage = Math.max(currentPage - 1, 1);
+                }
+
+                if(newPage !== currentPage) {
+                    window.location.href = `?page=${newPage}`;
+                }
+            });
+        });
+    </script>

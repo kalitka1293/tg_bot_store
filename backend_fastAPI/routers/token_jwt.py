@@ -1,14 +1,18 @@
-from fastapi import APIRouter, Depends, HTTPException, Response, status, Request
-
-from services.token_jwt import validation_authorization_get_current_user, create_access_token, ACCESS_TOKEN_EXPIRE_HOURS_TIMEDELTA
-from typing import Annotated
-from dto.token_jwt import TelegramId
-router_token = APIRouter()
-@router_token.put('/lol')
-async def data_test(credentials: Annotated[TelegramId, Depends(validation_authorization_get_current_user)]):
-    print(credentials)
-    print(credentials.telegram_id)
-    return credentials
+# from typing import Annotated
+#
+# from dto.token_jwt import TelegramId
+# from fastapi import (APIRouter, Depends, HTTPException, Request, Response,
+#                      status)
+# from services.token_jwt import (ACCESS_TOKEN_EXPIRE_HOURS_TIMEDELTA,
+#                                 create_access_token,
+#                                 validation_authorization_get_current_user)
+#
+# router_token = APIRouter()
+# @router_token.put('/lol')
+# async def data_test(credentials: Annotated[TelegramId, Depends(validation_authorization_get_current_user)]):
+#     print(credentials)
+#     print(credentials.telegram_id)
+#     return credentials
 # @router_token.post('/token')
 # async def get_token_access(response: Response, form_data: InitData):
 #     if form_data is None:

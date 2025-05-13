@@ -9,26 +9,34 @@ https://docs.djangoproject.com/en/5.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
-
-from pathlib import Path
+import environ
 import os
-from datetime import timedelta
+from pathlib import Path
 
-from django.conf.global_settings import STATICFILES_DIRS, MEDIA_URL, MEDIA_ROOT
+from django.conf.global_settings import MEDIA_ROOT, MEDIA_URL, STATICFILES_DIRS
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+env = environ.Env(
+    # set casting, default value
+    DEBUG=(bool, True)
+)
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-3z$o8f6%@-1unstd_epa8!^0#f+7p-@4%wlg)zdjknqg5&-yc('
-
+SECRET_KEY = env('SECRET_KEY')
+SECRET_KEY_JWT = env('SECRET_KEY_JWT')
+ALGORITHM = env('ALGORITHM')
+BOT_SECRET = env('BOT_SECRET')
+SET_COOKIE_SECURE = env('SET_COOKIE_SECURE')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-link = 'dba035e5acca98.lhr.life'
+link = 'https://57a7a3c1557025.lhr.life'
+link = link[8:]
 
 ALLOWED_HOSTS = [
     link,  # Без схемы (http/https)
@@ -62,6 +70,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'django_ckeditor_5',
+    'django_filters',
 
     'order',
     'mini_app',
@@ -103,12 +112,12 @@ WSGI_APPLICATION = 'website_store.wsgi.application'
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": "tg_store",
-        "USER": "tg",
-        "PASSWORD": "tg",
-        "HOST": "localhost",
-        "PORT": "5432",
+        "ENGINE": env('ENGINE'),
+        "NAME": env('NAME'),
+        "USER": env('USER'),
+        "PASSWORD": env('PASSWORD'),
+        "HOST": env('HOST'),
+        "PORT": env('PORT'),
     }
 }
 
@@ -165,17 +174,17 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #"LOCATION": "redis://host.docker.internal:6379/1",
 CACHES = {
     "default": {
-        "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://127.0.0.1:6379/1",
+        "BACKEND": env('BACKEND'),
+        "LOCATION": env('LOCATION'),
         "OPTIONS": {
-            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            "CLIENT_CLASS": env('CLIENT_CLASS'),
         }
     }
 }
 
 # Celery
-CELERY_BROKER_URL = 'redis://127.0.0.1:6379'
-CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379'
+CELERY_BROKER_URL = env('CELERY_BROKER_URL')
+CELERY_RESULT_BACKEND = env('CELERY_RESULT_BACKEND')
 
 
 CKEDITOR_5_CUSTOM_CSS = 'css/ckeditor5/admin_dark_mode_fix.css'
@@ -238,8 +247,8 @@ CKEDITOR_5_CONFIGS = {
 
     },
     'table': {
-        'contentToolbar': [ 'tableColumn', 'tableRow', 'mergeTableCells',
-        'tableProperties', 'tableCellProperties' ],
+        'contentToolbar': ['tableColumn', 'tableRow', 'mergeTableCells',
+        'tableProperties', 'tableCellProperties'],
         'tableProperties': {
             'borderColors': customColorPalette,
             'backgroundColors': customColorPalette

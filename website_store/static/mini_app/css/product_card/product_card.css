@@ -57,10 +57,11 @@ background: white;
     background: rgba(233, 245, 255, 1);
     padding: 20px;
     border-radius: 8px;
-    margin: 20px 0;
+    margin: 20px auto;
 }
 
 .price {
+    background: rgba(233, 245, 255, 1);
     font-size: 32px;
     color: #000000;
     margin: 10px 0;
@@ -70,9 +71,9 @@ background: white;
     background: #000000;
     color: white;
     border: none;
-    padding: 15px 30px;
+    padding: 15px 23px;
     border-radius: 8px;
-    font-size: 18px;
+    font-size: 20px;
     cursor: pointer;
     width: 100%;
 }

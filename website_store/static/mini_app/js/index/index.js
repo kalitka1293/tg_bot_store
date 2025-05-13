@@ -2,7 +2,13 @@
 // Обработчик корзины
 document.addEventListener('click', (e) => {
     if (e.target.classList.contains('add-to-cart')) {
+        const text_to_basket = 'Перейти в корзину'
+
         const productCard = e.target.closest('.product-card');
+        if (e.target.tagName === 'A') {
+            // Если это уже ссылка - позволяем переходу произойти естественным образом
+            return;
+        }
         const productID = productCard.querySelector('.id_product').value;
         const productName = productCard.querySelector('.product-title').textContent;
 
@@ -10,10 +16,12 @@ document.addEventListener('click', (e) => {
         const button = document.getElementById(ButtinId)
 
         const link = document.createElement('a');
+        console.log((link.innerText == text_to_basket))
+
         link.href = window.URL_SITE.basket;
         link.className = button.className; // Сохраняем классы
         link.id = button.id; // Сохраняем ID
-        link.innerText = 'Перейти в корзину';
+        link.innerText = text_to_basket;
         link.style.display = 'inline-block'; // Для корректного отображения
         link.style.padding = '8px 12px'; // Пример стилей кнопки
         link.style.textDecoration = 'none'; // Убираем подчеркивание
@@ -83,13 +91,23 @@ const showResults = (results) => {
     limitedResults.forEach(item => {
         const resultItem = document.createElement('div');
         resultItem.className = 'search-result-item';
-        resultItem.textContent = 'Кондиционер: ' + item.name + ' | бренд:' + item.brand; 
+
+        const resultLink = document.createElement('a');
+        resultLink.textContent = 'Кондиционер: ' + item.name + ' | бренд:' + item.brand;
+        resultLink.href = window.URL_SITE.product.replace('0', item.id);
+        resultLink.style.display = 'block'; // Чтобы ссылка занимала всю площадь элемента
+        resultLink.style.padding = '10px'; // Добавляем отступы для лучшего UX
+        resultLink.style.textDecoration = 'none'; // Убираем подчеркивание
+        resultLink.style.color = 'inherit'; // Наследуем цвет текста
+
+        resultItem.appendChild(resultLink);
+        resultsContainer.appendChild(resultItem);
+
+        // Оставляем обработчик клика для дополнительного функционала
         resultItem.addEventListener('click', () => {
             document.getElementById('searchInput').value = item.title;
             resultsContainer.style.display = 'none';
-            // Здесь можно добавить переход на страницу товара
         });
-        resultsContainer.appendChild(resultItem);
     });
 }
 
@@ -103,7 +121,7 @@ const DEBOUNCE_DELAY = 300; // Задержка в миллисекундах
 const performSearch = (query_search) => {
     if (query_search.trim() !== '') {
         console.log('Ищем:', query_search);
-        axios.get('http://127.0.0.1:8000/products/search', {
+        axios.get(`${window.URL_FASTAPI.url}/products/search`, {
             params: { query: query_search },
             headers: {
                 'accept': 'application/json'

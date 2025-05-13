@@ -45,7 +45,8 @@
                     {{ form.phone.errors }}
                 </div>
             </div>
-
+                <input type="hidden" name="online_payment" id="online_payment" value="0">
+                <input type="hidden" name="callback_request" id="callback_request" value="0">
             <!-- Секция адреса доставки -->
             <div class="form-section">
                 <h2 class="section-title">Адрес доставки</h2>
@@ -82,28 +83,12 @@
 
                 <!-- Поле для обратного звонка -->
                 <div class="input-group" id="callback-field" style="display: none;">
-                    <label for="payment-phone">Контактный телефон</label>
-                    <input type="tel" id="payment-phone" name="payment_phone"
-                           pattern="\+7\s?[0-9]{3}\s?[0-9]{3}\s?[0-9]{2}\s?[0-9]{2}"
-                           placeholder="+7 999 123 45 67">
+
                 </div>
 
                 <!-- Блок с методами онлайн-оплаты -->
                 <div class="payment-options" id="online-methods" style="display: none;">
-                    <div class="payment-grid">
-                        <button type="button" class="payment-option" data-method="card">
-                            💳 Банковская карта
-                        </button>
-                        <button type="button" class="payment-option" data-method="paypal">
-                            🅿️ PayPal
-                        </button>
-                        <button type="button" class="payment-option" data-method="crypto">
-                            ₿ Криптовалюта
-                        </button>
-                        <button type="button" class="payment-option" data-method="applepay">
-                             Apple Pay
-                        </button>
-                    </div>
+
                 </div>
             </div>
 

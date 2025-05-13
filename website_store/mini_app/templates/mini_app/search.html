@@ -1,0 +1,153 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Поиск товаров</title>
+    <link rel="stylesheet" href="{% static 'mini_app/css/search/search.css' %}">
+    <link rel="stylesheet" href="{% static 'mini_app/css/index/hat.css' %}" />
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <link rel="stylesheet" href="{% static 'mini_app/css/index/product_list_page.css' %}" />
+    <link rel="stylesheet" href="{% static 'mini_app/css/index/button_basket.css' %}" />
+
+</head>
+<body>
+
+    {% include 'mini_app/header.html' %}
+
+ <form action="{% url 'mini_app:search' %}" method="get" id="searchView">
+    <div class="search-container">
+                {% csrf_token %}
+            <div class="filter-group">
+                <label class="filter-label">Бренд кондиционера:</label>
+                <div class="select-wrapper">
+                    {{ form.brand }}
+                </div>
+            </div>
+
+            <div class="filter-group">
+                <label class="filter-label">Страна производитель:</label>
+                <div class="select-wrapper">
+                    {{ form.country }}
+                </div>
+            </div>
+
+            <div class="filter-group">
+                <label class="filter-label">Тип оборудования:</label>
+                <div class="select-wrapper">
+                        {{ form.type_equipment }}
+                </div>
+            </div>
+
+            <!-- Диапазон цен -->
+            <div class="filter-group">
+                <label class="filter-label">Цена, ₽</label>
+                <div class="price-range">
+                    {{ form.price__gt }} {{ form.price__lt }}
+                </div>
+            </div>
+            <!-- Мощность охлаждения -->
+            <div class="filter-group">
+                <label class="filter-label">Мощность охлаждения:</label>
+                <div class="price-range">
+                    {{ form.cooling_power__gt }} {{ form.cooling_power__lt }}
+                </div>
+            </div>
+            <!-- Мощность обогрева -->
+            <div class="filter-group">
+                <label class="filter-label">Мощность обогрева: </label>
+                <div class="price-range">
+                    {{ form.heating_power__gt }} {{ form.heating_power__lt }}
+                </div>
+            </div>
+            <!-- Рабочая площадь -->
+            <div class="filter-group">
+                <label class="filter-label">Рабочая площадь: </label>
+                <div class="price-range">
+                    {{ form.working_area__gt }} {{ form.working_area__lt }}
+                </div>
+            </div>
+            <!-- Уровень шума -->
+            <div class="filter-group">
+                <label class="filter-label">Уровень шума: </label>
+                <div class="price-range">
+                    {{ form.sound_level__gt }} {{ form.sound_level__lt }}
+                </div>
+            </div>
+        </div>
+
+        <button type="submit" class="apply-button">Показать результаты</button>
+    </div>
+</form>
+    {% if product_list %}
+    <div class="products-grid" id="productsContainer">
+        {% for product in product_list %}
+        <div class="product-card">
+
+            <div class="swiper product-swiper">
+            <div class="swiper-wrapper">
+                {% for image in product.images.all %}
+                <div class="swiper-slide">
+                    <a href="{% url 'mini_app:product_card' product.id %}" class="product-image">
+                        <img src="{{ image.image.url }}" alt="{{ product.name }}" class="product-image">
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+            <!-- Пагинация и навигация -->
+            <div class="swiper-pagination"></div>
+            </div>
+            <a href="{% url 'mini_app:product_card' product.id %}" class="product-link">
+                <h3 class="product-title">{{ product.name }}</h3>
+            </a>
+            <div class="brand">{{ product.brand.brand }}</div>
+            <div class="price-container">
+
+                <span class="new-price">{{ product.price }} руб.</span>
+            </div>
+            <div class="stock-status">В наличии</div>
+            <!-- class="id_product" здесь добавляется значение ID товара  -->
+            <input type="hidden" class="id_product" value="{{ product.id }}" />
+
+                <button id="button{{ product.id }}" class="add-to-cart" onclick="onclick">В корзину</button>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div id="empty-cart-message" class="empty-cart">
+            По вашему запросу ничего не найдено
+    </div>
+    {% endif %}
+
+    {% include 'mini_app/footer.html' %}
+    <script>
+        // Активация чипов категорий
+        document.querySelectorAll('.category-chip').forEach(chip => {
+            chip.addEventListener('click', function() {
+                document.querySelectorAll('.category-chip').forEach(c => c.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+    </script>
+        <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Инициализация всех слайдеров с классом .product-swiper
+    const swipers = document.querySelectorAll('.product-swiper');
+    swipers.forEach(swiperEl => {
+      new Swiper(swiperEl, {
+        loop: true,
+        pagination: {
+          el: swiperEl.querySelector('.swiper-pagination'),
+          clickable: true,
+        },
+        slidesPerView: 1,
+        spaceBetween: 10,
+      });
+    });
+  });
+</script>
+</body>
+</html>

@@ -1,6 +1,8 @@
-from pika import BlockingConnection, ConnectionParameters, BasicProperties
 import json
+
+from pika import BasicProperties, BlockingConnection
 from rabbitmq_common_code.config_common import BASKET_QUEUE, ConnectValidRabbit
+
 
 class ProducerRabbit(ConnectValidRabbit):
     def __init__(self, queue: str, schema: str):
@@ -20,6 +22,3 @@ class ProducerRabbit(ConnectValidRabbit):
                         delivery_mode=2,
                     )
                 )
-
-# x = ProducerRabbit(BASKET_QUEUE,  BASKET_QUEUE)
-# x.producer({'product_id': 1, 'user': 3434, 'quantity': 1, 'action': 12},)

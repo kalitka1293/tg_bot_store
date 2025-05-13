@@ -1,9 +1,9 @@
 import hashlib
 import hmac
-from urllib.parse import parse_qsl
-from operator import itemgetter
-from urllib.parse import parse_qs
 import json
+from operator import itemgetter
+from urllib.parse import parse_qs, parse_qsl
+
 
 def check_webapp_signature(init_data: str, token: str) -> bool:
     """

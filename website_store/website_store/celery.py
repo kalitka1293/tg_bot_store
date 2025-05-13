@@ -4,7 +4,6 @@ from celery import Celery
 
 # from mini_app.tasks import consumer_basket_rabbit
 
-from django.apps import apps
 
 # Set the default Django settings module for the 'celery' program.
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'website_store.settings')

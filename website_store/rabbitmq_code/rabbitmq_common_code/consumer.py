@@ -1,6 +1,9 @@
-from pika import ConnectionParameters, BlockingConnection
-from rabbitmq_common_code.config_common import BASKET_QUEUE, ConnectValidRabbit
 import json
+
+from pika import BlockingConnection, ConnectionParameters
+from rabbitmq_common_code.config_common import BASKET_QUEUE, ConnectValidRabbit
+
+
 def exaple_fun_consumer(ch, method, properties, body):
     body = json.loads(body)
     print(body)

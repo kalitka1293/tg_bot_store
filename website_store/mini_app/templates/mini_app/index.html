@@ -9,44 +9,53 @@
     <link rel="stylesheet" href="{% static 'mini_app/css/index/index.css' %}" />
     <link rel="stylesheet" href="{% static 'mini_app/css/index/scroll.css' %}" />
     <link rel="stylesheet" href="{% static 'mini_app/css/index/search.css' %}" />
+    <link rel="stylesheet" href="{% static 'mini_app/css/index/product_list_page.css' %}" />
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <link rel="stylesheet" href="{% static 'mini_app/css/index/hat.css' %}" />
-    <link rel="stylesheet" href="{% static 'order/css/button_basket.css' %}" />
+    <link rel="stylesheet" href="{% static 'mini_app/css/index/button_basket.css' %}" />
     <script src="{% static 'mini_app/js/index/index.js' %}"></script>
     <script src="{% static 'mini_app/js/index/scroll.js' %}"></script>
     <script src="{% static 'auth/js/auth.js' %}"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
-    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600&family=Space+Grotesk:wght@500&display=swap" rel="stylesheet">
 
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
-    {% include 'mini_app/header.html' %}
 
+    {% include 'mini_app/header.html' %}
+    <form method="get" action="{% url 'mini_app:search' %}" id="searchForm">
+        {% csrf_token %}
     <div class="search-container">
         <div class="search-box">
             <input type="text"
                    class="search-input"
                    placeholder="Введите поисковый запрос..."
-                   id="searchInput">
-            <button class="search-btn" id="searchBtn">
+                   id="searchInput"
+                   name="q"
+                   value="{{ request.GET.q }}"
+            >
+            <button type="submit" class="search-btn" id="searchBtn">
                 <i class="fas fa-search"></i>
             </button>
             <div class="search-results" id="searchResults"></div>
         </div>
     </div>
+    </form>
 
     <div class="scroll-container">
         <div class="blocks-wrapper">
-            <a href="#link1" class="block">Популярное</a>
-            <a href="#link2" class="block">Ballu</a>
-            <a href="#link3" class="block">Elecrolux</a>
-            <a href="#link4" class="block">Блок 4</a>
-            <a href="#link5" class="block">Блок 5</a>
-            <a href="#link6" class="block">Блок 6</a>
+            <a href="{% url 'mini_app:search' %}?view_main_menu=True" class="block">Популярное</a>
+            <a href="{% url 'mini_app:search' %}?brand=Ballu" class="block">Ballu</a>
+            <a href="{% url 'mini_app:search' %}?brand=Electrolux" class="block">Elecrolux</a>
+            <a href="{% url 'mini_app:search' %}?brand=Toshiba" class="block">Toshiba</a>
+            <a href="{% url 'mini_app:search' %}?brand=Energolux" class="block">Energolux</a>
+            <a href="{% url 'mini_app:search' %}?brand=ECOCLIMA" class="block">ECOCLIMA</a>
+            <a href="{% url 'order:orders_list' %}" class="block">Orders</a>
         </div>
     </div>
-    
+
     <div class="scroll-container-image">
         <div class="blocks-wrapper-image">
             <a href="{% url 'mini_app:article' 2 %}" class="block-image">
@@ -95,34 +104,35 @@
             <div class="stock-status">В наличии</div>
             <!-- class="id_product" здесь добавляется значение ID товара  -->
             <input type="hidden" class="id_product" value="{{ product.id }}" />
-            <button id="button{{ product.id }}" class="add-to-cart" onclick="onclick">В корзину</button>
+
+                <button id="button{{ product.id }}" class="add-to-cart" onclick="onclick">В корзину</button>
         </div>
         {% endfor %}
     </div>
-<div class="mobile-paginator">
-    <div class="paginator-content">
-        {% if page_obj.has_previous %}
-            <a href="?page={{ page_obj.previous_page_number }}" class="paginator-link">← Назад</a>
-        {% else %}
-            <span class="paginator-link disabled">← Назад</span>
-        {% endif %}
-
-        <span class="page-info">
-            Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}
-        </span>
-
-        {% if page_obj.has_next %}
-            <a href="?page={{ page_obj.next_page_number }}" class="paginator-link">Вперед →</a>
-        {% else %}
-            <span class="paginator-link disabled">Вперед →</span>
-        {% endif %}
-    </div>
-</div>
-
-<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+{% include 'mini_app/footer.html' %}
 <script>
-
+    {% if showPopup %}
+    alert('Все норм для повторной авторизации))')
+    Telegram.WebApp.showAlert('Вы попали на эту страницу, для повторной авторизации. С уважением, команда разработки');
+    {% endif %}
 </script>
 
+    <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Инициализация всех слайдеров с классом .product-swiper
+    const swipers = document.querySelectorAll('.product-swiper');
+    swipers.forEach(swiperEl => {
+      new Swiper(swiperEl, {
+        loop: true,
+        pagination: {
+          el: swiperEl.querySelector('.swiper-pagination'),
+          clickable: true,
+        },
+        slidesPerView: 1,
+        spaceBetween: 10,
+      });
+    });
+  });
+</script>
 </body>
 </html>

@@ -1,5 +1,6 @@
 from pydantic import BaseModel
 
+
 class Basket(BaseModel):
     product_id: int
     quantity: int
@@ -10,8 +11,8 @@ class Basket(BaseModel):
         :return: dict
         """
         return {
-            "product_id":self.product_id,
-            "user":self.user,
-            "quantity":self.quantity,
-            "action":action
+            "product_id": self.product_id,
+            "user": self.user,
+            "quantity": self.quantity,
+            "action": action
         }

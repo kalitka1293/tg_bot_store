@@ -1,39 +1,210 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" href="{% static 'mini_app/css/orders/orders.css' %}">
+    <link rel="stylesheet" href="{% static 'order/css/orders.css' %}">
+    <style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    line-height: 1.6;
+    color: #2d3436;
+    background-color: #f8f9fa;
+    min-height: 100vh;
+}
+
+.container {
+    width: 100%;
+    max-width: 100%;
+    padding: 1.5rem 1rem;
+    margin: 0 auto;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.mt-3 { margin-top: 1.5rem; }
+.mt-5 { margin-top: 3rem; }
+.pt-5 { padding-top: 3rem; }
+
+/* Orders table styles */
+.orders {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    overflow-x: auto;
+    padding: 1rem;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 1rem;
+    min-width: 600px;
+}
+
+.table th,
+.table td {
+    padding: 1.25rem;
+    text-align: left;
+    border-bottom: 2px solid #f1f2f6;
+    vertical-align: top;
+}
+
+.table th {
+    background-color: #fff;
+    font-weight: 600;
+    color: #2d3436;
+    font-size: 1.1rem;
+}
+
+.table tr:last-child td {
+    border-bottom: none;
+}
+
+/* Total price */
+.total-price {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #2d3436;
+    margin-top: 2rem;
+    padding: 1rem;
+    background: #fff;
+    border-radius: 8px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+    }
+
+    .orders {
+        padding: 0;
+        border-radius: 0;
+        box-shadow: none;
+        background: transparent;
+    }
+
+    .table {
+        min-width: 100%;
+        font-size: 1rem;
+        display: block;
+    }
+
+    .table thead {
+        display: none;
+    }
+
+    .table tr {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 1.5rem;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        padding: 1rem;
+    }
+
+    .table td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem;
+        border-bottom: 1px solid #eee;
+    }
+
+    .table td:last-child {
+        border-bottom: none;
+    }
+
+    .table td::before {
+        content: attr(data-label);
+        font-weight: 600;
+        color: #636e72;
+        margin-right: 1.5rem;
+        flex-shrink: 0;
+    }
+
+    .total-price {
+        font-size: 1.2rem;
+        flex-direction: column;
+        align-items: flex-end;
+        background: transparent;
+        padding: 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .table td {
+        padding: 0.75rem;
+        font-size: 1rem;
+    }
+
+    .table td::before {
+        font-size: 0.95rem;
+    }
+
+    body {
+        font-size: 16px;
+    }
+
+    .total-price {
+        font-size: 1.1rem;
+    }
+}
+
+/* Typography enhancements */
+td {
+    font-size: 1.05rem;
+    color: #2d3436;
+}
+
+th {
+    letter-spacing: 0.5px;
+}
+    </style>
 </head>
 <body>
  <section>
     <div class="container pt-5">
         <div class="text-center mt-5">
-            <h1>Заказ №{{ object.id }}</h1>
             <div class="orders mt-5">
                 <table class="table">
                     <thead>
                     <tr>
-                        <th scope="col">Название</th>
-                        <th scope="col">Кол-во</th>
-                        <th scope="col">Цена</th>
+                        <th scope="col">Номер заказа №</th>
+                        <th scope="col">Cтатус</th>
+                        <th scope="col">Создан</th>
                         <th scope="col">Сумма</th>
                     </tr>
                     </thead>
-                    <tbody>
-                    {% for purchased_item in object.basket_history.purchased_items %}
-                        <tr>
-                        <th scope="row">
-                            {{ purchased_item.product_name }}
-                        </th>
-                        <td>{{ purchased_item.quantity }}</td>
-                        <td>{{ purchased_item.price|intcomma }} руб.</td>
-                        <td>{{ purchased_item.total_sum |intcomma }}0 руб.</td>
-                    </tr>
-                    {% endfor %}
-                    </tbody>
+
+<tbody>
+{% for item in basket_history %}
+    <tr>
+        <td data-label="Номер заказа №">{{ item.id }}</td>
+        <td data-label="Cтатус">{{ item.get_status_display }}</td>
+        <td data-label="Создан">{{ item.created }}</td>
+        <td data-label="Сумма">{{ item.basket_history.total_sum }} руб.</td>
+    </tr>
+{% endfor %}
+</tbody>
+
                 </table>
-                <p class="float-right h4 mt-3">Итого {{ object.basket_history.total_sum|intcomma }} руб.</p>
+                <p class="float-right h4 mt-3">Итого {{ basket_history.total_sum }} руб.</p>
             </div>
         </div>
     </div>

@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="{% static 'mini_app/css/index/hat.css' %}" />
     <link rel="stylesheet" href="{% static 'mini_app/css/product_card/product_card.css' %}" />
     <link rel="stylesheet" href="{% static 'mini_app/css/product_card/review.css' %}" />
+    <script src="{% static 'mini_app/js/product_card/product_card.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
+
     <title>{{ product_card.name }}</title>
 
 </head>
@@ -28,11 +31,11 @@
                 <h1>{{ product_card.name }}</h1>
                 <div class="price-block">
                     <div class="price">{{ product_card.price }} ₽</div>
-                    <button class="buy-btn">Добавить в корзину</button>
+                    <input type="hidden" class="id_product" value="{{ product_card.id }}" />
+                    <button id="button{{ product_card.id }}" class="buy-btn">Добавить в корзину</button>
                 </div>
 
                 <div class="sizes">
-<!--                    <div class="size-btn selected">40</div>-->
                     {% for other_product in product_card.group_product %}
                         {% if other_product.id == product_card.id %}
                             <div class="size-btn selected no-link-style">{{ other_product.working_area }}</div>
@@ -125,52 +128,28 @@
         <div class="no-reviews">Отзывов пока нет</div>
     {% endif %}
 
-
 </div>
-    <button class="add-review-btn" onclick="showReviewForm()">Оставить отзыв</button>
-<script>
-    function showReviewForm() {
-        // Ваша логика открытия формы
-        alert('Форма отзыва будет здесь');
-        /* Пример реализации:
-        const form = document.createElement('div');
-        form.innerHTML = `
-            <div class="review-form-overlay">
-                ...
-            </div>
-        `;
-        document.body.appendChild(form);
-        */
-    }
-</script>
+     <button class="add-review-btn" onclick="showReviewForm()">Оставить отзыв</button>
     </div>
+<script>
+    document.querySelectorAll('.size-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+        document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('selected'));
+        this.classList.add('selected');
+    });
+});
 
-    <script>
-        // Обработчик выбора размера
-        document.querySelectorAll('.size-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('selected'));
-                this.classList.add('selected');
-            });
-        });
+// Обработчик миниатюр
+document.querySelectorAll('.thumbnail').forEach(thumb => {
+    thumb.addEventListener('click', function() {
+        const mainImg = document.querySelector('.main-image img');
+        const newSrc = this.querySelector('img').src;
+        mainImg.src = newSrc.replace('-thumb', '');
 
-        // Обработчик миниатюр
-        document.querySelectorAll('.thumbnail').forEach(thumb => {
-            thumb.addEventListener('click', function() {
-                const mainImg = document.querySelector('.main-image img');
-                const newSrc = this.querySelector('img').src;
-                mainImg.src = newSrc.replace('-thumb', '');
-
-                document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
-                this.classList.add('active');
-            });
-        });
-
-        // Обработчик кнопки покупки
-        document.querySelector('.buy-btn').addEventListener('click', function() {
-            const size = document.querySelector('.size-btn.selected').innerText;
-            alert(`Добавлено в корзину: размер ${size}`);
-        });
-    </script>
+        document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
+        this.classList.add('active');
+    });
+});
+</script>
 </body>
 </html>

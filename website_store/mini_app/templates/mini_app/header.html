@@ -3,14 +3,14 @@
 <div class="hat">
     <div class="main-icon">
         <a href="{% url 'mini_app:main_menu' %}" target="_self">
-            <img src="{% static 'mini_app/icon/main-icon.png' %}" alt="main-icon" class="main-icon-image">
+            <img src="{% static 'mini_app/icon/main-icon.svg' %}" alt="main-icon" class="main-icon-image">
         </a>
     </div>
 
     <div class="basket-icon">
         <a href="{% url 'order:basket' %}" >
 
-            <img src="{% static 'mini_app/icon/basket.png' %}" alt="basket-icon" class="basket-icon-image">
+            <img src="{% static 'mini_app/icon/basket.svg' %}" alt="basket-icon" class="basket-icon-image">
         </a>
     </div>
 
@@ -22,13 +22,18 @@
 </div>
 
 <script>
-  window.API_URLS = {
-    getToken: "{% url 'token:get' %}"
-  };
+    window.API_URLS = {
+        getToken: "{% url 'token:get' %}"
+    };
+
+    window.ERROR = {
+        error_authorization: "{% url 'token:error_authorization' %}"
+    }
   window.URL_SITE = {
     main_page: "{% url 'mini_app:main_menu' %}",
     basket: "{% url 'order:basket' %}",
-    form_pay: "{% url 'order:form_pay' %}"
+    form_pay: "{% url 'order:form_pay' %}",
+    product: "{% url 'mini_app:product_card' 0 %}"
   };
     window.URL_FASTAPI = {
         url: 'http://127.0.0.1:8000'
@@ -37,8 +42,8 @@
     const WebApp = window.Telegram.WebApp;
 
         window.INIT_DATA = {
-<!--        initData: WebApp.initData-->
-        initData: 'query_id=AAHdF6IQAAAAAN0XohDhrOr8&user=%7B%22id%22%3A279058397%2C%22first_name%22%3A%22John%22%2C%22last_name%22%3A%22Doe%22%2C%22username%22%3A%22johndoe%22%2C%22language_code%22%3A%22en%22%7D&auth_date=1653041776&hash=c501b8e0a6b38d4e9e9a82ae8816f0a9d8a9c9e0e6a9e6a9e6a9e6a9e6a9e6a9'
+        initData: WebApp.initData
+<!--        initData: 'query_id=AAHdF6IQAAAAAN0XohDhrOr8&user=%7B%22id%22%3A279058397%2C%22first_name%22%3A%22John%22%2C%22last_name%22%3A%22Doe%22%2C%22username%22%3A%22johndoe%22%2C%22language_code%22%3A%22en%22%7D&auth_date=1653041776&hash=c501b8e0a6b38d4e9e9a82ae8816f0a9d8a9c9e0e6a9e6a9e6a9e6a9e6a9e6a9'-->
     };
 </script>
 

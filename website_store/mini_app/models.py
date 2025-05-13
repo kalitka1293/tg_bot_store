@@ -1,20 +1,20 @@
-from django.db import models
-from django.core.files import File
-from django_ckeditor_5.fields import CKEditor5Field
-from django.contrib.auth.models import AbstractUser
-from django.core.validators import RegexValidator
-
-from PIL import Image
 import uuid
 from io import BytesIO
 
+from django.core.files import File
+from django.db import models
+from django_ckeditor_5.fields import CKEditor5Field
+from PIL import Image
+
 
 class StoreUser(models.Model):
-    telegram_id = models.IntegerField()
+    telegram_id = models.IntegerField(unique=True)
     telegram_username = models.CharField()
-    telegram_first_name = models.CharField(null=True)
-    telegram_last_name = models.CharField(null=True)
-    created = models.DateTimeField(auto_created=True)
+    telegram_first_name = models.CharField(null=True, blank=True)
+    telegram_last_name = models.CharField(null=True, blank=True)
+    created = models.DateTimeField(auto_now_add=True)
+    last_login = models.DateTimeField(auto_now_add=True)
+
 
 class Country(models.Model):
     country = models.CharField(max_length=256)
@@ -22,11 +22,13 @@ class Country(models.Model):
     def __str__(self):
         return self.country
 
+
 class SubcategoryProduct(models.Model):
     subcategory_product = models.CharField(max_length=256)
 
     def __str__(self):
         return self.subcategory_product
+
 
 class TypeEquipment(models.Model):
     type_equipment = models.CharField(max_length=256)
@@ -34,11 +36,13 @@ class TypeEquipment(models.Model):
     def __str__(self):
         return self.type_equipment
 
+
 class Brand(models.Model):
     brand = models.CharField(max_length=256)
 
     def __str__(self):
-        return self.brand
+        return f"{self.id} {self.brand}"
+
 
 class Product(models.Model):
     """
@@ -60,14 +64,6 @@ class Product(models.Model):
     def __str__(self):
         return self.name
 
-
-class ParameterProduct(models.Model):
-    key = models.CharField(max_length=256)
-    value = models.CharField()
-    product = models.ForeignKey(to=Product, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.key
 
 class ProductImage(models.Model):
     product = models.ForeignKey(
@@ -111,14 +107,27 @@ class ProductImage(models.Model):
                 compressed_image.file,
                 save=False
             )
+
         super().save(
-        *args,
-        force_insert=False,
-        force_update=False,
-        using=None,
-        update_fields=None,)
+      *args,
+            force_insert=False,
+            force_update=False,
+            using=None,
+            update_fields=None,
+        )
+
     def __str__(self):
         return self.product.name
+
+
+class ParameterProduct(models.Model):
+    key = models.CharField(max_length=256)
+    value = models.CharField()
+    product = models.ForeignKey(to=Product, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.key
+
 
 class ReviewProduct(models.Model):
     product = models.ForeignKey(to=Product, on_delete=models.CASCADE)
@@ -135,5 +144,3 @@ class Article(models.Model):
 
     def __str__(self):
         return self.title
-
-
