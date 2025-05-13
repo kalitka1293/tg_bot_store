@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <title>Перезапустите приложение</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f9f9f9;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+        }
+        .container {
+            background: #fff;
+            padding: 30px 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            max-width: 400px;
+        }
+        h1 {
+            color: #0088cc;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+        button {
+            background-color: #0088cc;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #006699;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Пожалуйста, перезапустите приложение</h1>
+        <p>Для корректной работы Telegram Mini App необходимо перезапустить приложение.</p>
+        <button onclick="restartApp()">Перезапустить</button>
+    </div>
+
+    <script>
+        function restartApp() {
+            if (window.Telegram && Telegram.WebApp) {
+                Telegram.WebApp.close(); // Закрыть мини-приложение
+                // После закрытия пользователь может открыть заново из Telegram
+            } else {
+                // Если не в Telegram Mini App, просто перезагрузить страницу
+                location.reload();
+            }
+        }
+    </script>
+</body>
+</html>

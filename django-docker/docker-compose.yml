@@ -1,0 +1,9 @@
+services:
+  web:
+    build: .
+    command: gunicorn --bind 0.0.0.0:8080 --workers 2 --timeout 120 --access-logfile - website_store.wsgi
+    volumes:
+      - .:/usr/backend/django/
+    ports:
+      - "8080:8080"
+
