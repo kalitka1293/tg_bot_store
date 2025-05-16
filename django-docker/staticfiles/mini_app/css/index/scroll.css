@@ -1,0 +1,59 @@
+.scroll-container {
+    overflow-x: auto; /* Включить скролл при необходимости */
+    scrollbar-width: none; /* Для Firefox */
+    padding: 10px 0 15px;
+    white-space: nowrap;
+}
+
+.scroll-container::-webkit-scrollbar {
+    display: none; /* Скрыть скроллбар в WebKit */
+}
+
+.blocks-wrapper {
+    display: inline-flex;
+    gap: 15px;
+    padding: 0 5px;
+}
+
+.block {
+    width: 100px; /* Фиксированная ширина или min-width */
+    height: 30px;
+    background: rgb(66, 149, 255);
+    border-radius: 4px;
+    backdrop-filter: blur(5px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-family: Arial, sans-serif;
+    text-decoration: none;
+    flex: 0 0 auto; /* Лучше чем flex-shrink: 0 */
+}
+
+.block:hover {
+    transform: translateY(-5px);
+}
+
+.scroll-container-image {
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+
+.blocks-wrapper-image {
+    display: inline-flex;
+    gap: 15px;
+    padding: 0 5px;
+}
+
+.block-image {
+    width: 30vw;
+    max-width: 150px;
+    height: auto;
+    transition: transform 0.2s ease;
+}
+
+.block-image:hover {
+    transform: scale(1.02);
+}

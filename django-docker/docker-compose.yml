@@ -1,10 +1,15 @@
 services:
   web:
     build: .
-    command: gunicorn --bind 0.0.0.0:8080 --workers 2 --timeout 120 --access-logfile - website_store.wsgi
+    command: /bin/sh -c "python website_store/manage.py collectstatic --noinput && gunicorn --bind 0.0.0.0:8080 --workers 2 --timeout 120 --access-logfile - website_store.wsgi"
+
+#    command: python website_store/manage.py collectstatic
+#    command: gunicorn --bind 0.0.0.0:8080 --workers 2 --timeout 120 --access-logfile - website_store.wsgi
       #command: python website_store/manage.py  migrate
     volumes:
       - .:/usr/backend/django/
+      - ./staticfiles:/usr/backend/django/website_store/staticfiles
+      - ./media:/usr/backend/django/website_store/media
     ports:
       - "8080:8080"
     networks:
