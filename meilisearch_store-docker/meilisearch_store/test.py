@@ -1,5 +1,5 @@
 from database import get_db, Brand
-from dowload_data_meilisearch import get_all_product_data_meilisearch
+from dowload_data_meilisearch import add_all_data_product
 
 def test():
     print("Run test!")
@@ -24,6 +24,7 @@ def test():
     print("test BD success")
 
     print('TEST download data bd in meilisearch')
+    add_all_data_product('product')
 
 test()
 
