@@ -8,8 +8,10 @@ FASTAPI_QUEUE = 'fastapi'
 
 class ConnectValidRabbit:
     def __init__(self, queue: str, schema: str, __class=None):
+        host = '172.22.0.9'
+        print(host, '<<<<<<<<<<<<<<<<<<<<<<<<<<<<')
         self.connection_param = ConnectionParameters(
-            host='rabbitmq',
+            host=host,
             port=5672
         )
         self.queue = queue
