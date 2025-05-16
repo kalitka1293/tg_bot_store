@@ -141,7 +141,6 @@ def get_all_product_data_meilisearch() -> list:
             joinedload(Product.type_equipment)
         )
     )
-    db.close()
     list_data = []
     for result in scl.all():
         list_data.append({
@@ -154,4 +153,5 @@ def get_all_product_data_meilisearch() -> list:
         "group_product": result.group_product.subcategory_product,
         "type_equipment": result.type_equipment.type_equipment
     })
+    db.close()
     return list_data
