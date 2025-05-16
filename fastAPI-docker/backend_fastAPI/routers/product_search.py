@@ -9,6 +9,7 @@ async def perform_search(query):
     index = client.index('product')
     print(index, query, '<<<<')
     result = await index.search(query=query, limit=5)
+    print(result)
     return result
 
 
