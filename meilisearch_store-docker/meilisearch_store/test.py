@@ -25,6 +25,7 @@ def test():
 
     print('TEST download data bd in meilisearch')
     add_all_data_product('product')
+    print('Success')
 
 test()
 
