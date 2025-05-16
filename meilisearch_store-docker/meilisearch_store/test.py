@@ -22,17 +22,17 @@ def test():
     db.delete(brand_from_db)
     db.commit()
     print("test BD success")
-    # print('update_searchable_attributes')
-    # index = client.index('product')
-    # response = index.update_searchable_attributes([
-    #     "name",
-    #     "description",
-    #     "brand",
-    #     "country",
-    #     "group_product",
-    #     "type_equipment"
-    # ])
-    # print('Update response:', response)
+    print('update_searchable_attributes')
+    index = client.index('product')
+    response = index.update_searchable_attributes([
+        "name",
+        "description",
+        "brand",
+        "country",
+        "group_product",
+        "type_equipment"
+    ])
+    print('Update response:', response)
     print('TEST download data bd in meilisearch')
     add_all_data_product('product')
     print('Success')
