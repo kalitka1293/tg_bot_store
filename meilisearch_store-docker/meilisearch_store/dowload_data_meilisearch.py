@@ -3,6 +3,9 @@ from app import client
 
 def add_all_data_product(index: str):
     document = get_all_product_data_meilisearch()
+    if document is None:
+        print('база данных пустая')
+        return
     client.index(index).add_documents(document)
 
 def add_one_data_product(index: str, product_id: int):

@@ -1,6 +1,7 @@
 from database import get_db, Brand
 
 def test():
+    print("Run test!")
     db = get_db()
     test_data = Brand(brand='TEST_NAME')
     db.add(test_data)
@@ -19,7 +20,9 @@ def test():
     # Удаляем объект
     db.delete(brand_from_db)
     db.commit()
+    print("test success")
 
+test()
 
 
 

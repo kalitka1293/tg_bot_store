@@ -6,4 +6,4 @@ venv-ms/
 venv-django/
 venv-fast/
 venv-bot/
-.env/
+.env*

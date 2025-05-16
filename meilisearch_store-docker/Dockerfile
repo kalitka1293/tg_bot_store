@@ -7,11 +7,11 @@ COPY requirements.txt requirements.txt
 
 RUN pip install -r requirements.txt
 
-COPY  /tg_bot_store/library/rabbitmq_code /tmp/rabbitmq_code
+COPY  ./rabbitmq_code /tmp/rabbitmq_code
 
 RUN pip install /tmp/rabbitmq_code
 
-COPY meilisearch_store .
+COPY meilisearch_store/ .
 
 CMD [ "python", "main.py" ]
 
