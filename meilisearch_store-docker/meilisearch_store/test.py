@@ -23,7 +23,8 @@ def test():
     db.commit()
     print("test BD success")
     print('update_searchable_attributes')
-    client.index.update_searchable_attributes([
+    index = client.index('product')
+    response = index.update_searchable_attributes([
         "name",
         "description",
         "brand",
@@ -31,6 +32,7 @@ def test():
         "group_product",
         "type_equipment"
     ])
+    print('Update response:', response)
     print('TEST download data bd in meilisearch')
     add_all_data_product('product')
     print('Success')
