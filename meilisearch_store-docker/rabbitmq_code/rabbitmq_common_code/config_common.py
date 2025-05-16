@@ -9,7 +9,7 @@ FASTAPI_QUEUE = 'fastapi'
 class ConnectValidRabbit:
     def __init__(self, queue: str, schema: str, __class=None):
         self.connection_param = ConnectionParameters(
-            host='rabbit-docker-rabbitmq-1',
+            host='rabbitmq',
             port=5672
         )
         self.queue = queue
