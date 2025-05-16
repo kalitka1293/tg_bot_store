@@ -7,3 +7,4 @@ venv-django/
 venv-fast/
 venv-bot/
 .env*
+staticfiles/
