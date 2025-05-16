@@ -37,6 +37,10 @@ def test():
     add_all_data_product('product')
     print('Success')
 
+    print('test get data meilisearch')
+    res = client.index('product')
+    c = res.search('test')
+    print(c, '<<<')
 test()
 
 
