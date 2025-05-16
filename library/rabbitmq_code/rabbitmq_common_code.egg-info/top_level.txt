@@ -1,1 +1,2 @@
+build
 rabbitmq_common_code

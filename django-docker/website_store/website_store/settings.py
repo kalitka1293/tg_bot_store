@@ -39,6 +39,7 @@ link = 'https://57a7a3c1557025.lhr.life'
 link = link[8:]
 
 ALLOWED_HOSTS = [
+    "109.73.195.165",
     link,  # Без схемы (http/https)
     "localhost",
     "127.0.0.1",

@@ -5,9 +5,10 @@ from routers import basket as BasketRouter
 from routers import product_search as ProductRouter
 
 
-app = FastAPI()
+app = FastAPI(root_path="/api")
 # Настройка безопастности требуется
 origin = [
+        "109.73.195.165",
         "http://127.0.0.1:8000",
         "localhost"
     ]

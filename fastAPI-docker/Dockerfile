@@ -1,4 +1,4 @@
-FROM python:3.10.0
+FROM python:3.10
 
 RUN mkdir -p /usr/backend/fastapi
 WORKDIR /usr/backend/fastapi

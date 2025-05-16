@@ -1,0 +1,11 @@
+services:
+  meilisearch_store_services:
+    build: .
+    command: python main.py
+    volumes:
+      - .:/usr/backend/service_meilisearch
+    networks:
+      - main
+networks:
+  main:
+    external: true

@@ -2,8 +2,24 @@ services:
   web:
     build: .
     command: gunicorn --bind 0.0.0.0:8080 --workers 2 --timeout 120 --access-logfile - website_store.wsgi
+      #command: python website_store/manage.py  migrate
     volumes:
       - .:/usr/backend/django/
     ports:
       - "8080:8080"
+    networks:
+      main:
+        ipv4_address: 172.22.0.8
+  celery:
+    build: .
+    command: celery -A website_store worker --loglevel=info
+    volumes:
+      - .:/usr/backend/django/
+    networks:
+      - main
+    depends_on:
+      - web
 
+networks:
+  main:
+    external: true
