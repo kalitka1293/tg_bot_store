@@ -12,7 +12,7 @@ async def perform_search(query):
     }
     result = index.search(query, search_params)
     result = result['hits']
-    print(result)
+    print(result, '<<<<<<<')
     return result
 
 
