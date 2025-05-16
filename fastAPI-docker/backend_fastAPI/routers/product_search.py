@@ -11,7 +11,7 @@ async def perform_search(query):
     search_params = {
         "limit": 10,
     }
-    result = index.search(query=query, search_params)
+    result = index.search(query, search_params)
     print(result)
     return result
 
