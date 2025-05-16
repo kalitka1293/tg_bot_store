@@ -7,13 +7,11 @@ router_product_search = APIRouter()
 async def perform_search(query):
     client = Client('http://meilisearch:7700', 'rcN6lh9xlE4_vcL7yuEK5YOrLleh8tdMR2m1FVcvRe0')
     index = client.index('product')
-    print(index, query, '<<<<')
     search_params = {
-        "limit": 10,
+        "limit": 7,
     }
     result = index.search(query, search_params)
-    print(result)
-    return result
+    return result['hits']
 
 
 @router_product_search.get('/search/', tags=['search'])
