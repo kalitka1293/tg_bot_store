@@ -3,9 +3,8 @@ from app import client
 
 def add_all_data_product(index: str):
     document = get_all_product_data_meilisearch()
-    print(document, type(document), 'document')
-    if document is None or not document:
-        print('база данных пустая')
+    if not document:
+        print('!!! база данных пустая !!!')
         return
     client.index(index).add_documents(document)
 
