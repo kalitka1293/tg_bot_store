@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Query
-from meilisearch_python_sdk import AsyncClient
+from meilisearch_python_async import AsyncClient
 
 router_product_search = APIRouter()
 
