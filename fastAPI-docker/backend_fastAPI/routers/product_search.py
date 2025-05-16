@@ -1,11 +1,11 @@
 from fastapi import APIRouter, Query
-from meilisearch_python_sdk import AsyncClient
+from meilisearch_python_async import Client
 
 router_product_search = APIRouter()
 
 
 async def perform_search(query):
-    client = AsyncClient('http://172.17.0.1:7700', 'rcN6lh9xlE4_vcL7yuEK5YOrLleh8tdMR2m1FVcvRe0')
+    client = Client('http://172.17.0.1:7700', 'rcN6lh9xlE4_vcL7yuEK5YOrLleh8tdMR2m1FVcvRe0')
     index = client.index('product')
     print(index, query, '<<<<')
     result = await index.search(query=query, limit=5)
