@@ -11,7 +11,9 @@ async def perform_search(query):
         "limit": 7,
     }
     result = index.search(query, search_params)
-    return result['hits']
+    result = result['hits']
+    print(result)
+    return result
 
 
 @router_product_search.get('/search/', tags=['search'])
