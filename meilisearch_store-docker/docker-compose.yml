@@ -1,7 +1,7 @@
 services:
   meilisearch_store_services:
     build: .
-    command: python meilisearch_store/main.py
+    command: python meilisearch_store/test.py
     volumes:
       - .:/usr/backend/service_meilisearch
     networks:

@@ -1,4 +1,5 @@
 from database import get_db, Brand
+from dowload_data_meilisearch import get_all_product_data_meilisearch
 
 def test():
     print("Run test!")
@@ -20,7 +21,9 @@ def test():
     # Удаляем объект
     db.delete(brand_from_db)
     db.commit()
-    print("test success")
+    print("test BD success")
+
+    print('TEST download data bd in meilisearch')
 
 test()
 
