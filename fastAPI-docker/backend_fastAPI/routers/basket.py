@@ -3,7 +3,7 @@ from typing import Annotated
 from database import get_db
 from dto import basket as BasketDTO
 from dto.token_jwt import TelegramId
-from fastapi import APIRouter, Depends, Request
+from fastapi import APIRouter, Depends
 from services import basket as BasketServices
 from services.token_jwt import validation_authorization_get_current_user
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -19,11 +19,8 @@ async def create(
         TelegramId,
         Depends(validation_authorization_get_current_user)
     ],
-    request: Request,
-    csrf_protect: CsrfProtect = Depends(),
     db: AsyncSession = Depends(get_db),
 ):
-    await csrf_protect.validate_csrf(request)
     return await BasketServices.create_basket(data, db, telegram_id.telegram_id)
 
 
