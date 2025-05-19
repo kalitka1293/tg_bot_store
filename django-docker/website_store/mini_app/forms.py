@@ -3,7 +3,8 @@ from django.core.cache import cache
 from mini_app.redis import check_data_in_redis
 
 def get_cache_param(key: str):
-    if cache.get(key) is None:
+    data = cache.get(key)
+    if data is None:
         print('\n\n')
         print('ключа нет')
         print('\n\n')
@@ -12,19 +13,19 @@ def get_cache_param(key: str):
         print('\n\n')
         return cache.get(key)
     else:
-        return cache.get(key)
+        return data
 
 class SearchForm(forms.Form):
     brand = forms.ChoiceField(
-        choices=get_cache_param('brand_list') if get_cache_param('brand_list') else (('пизда', 'пизда')),
+        choices=get_cache_param('brand_list'),
         required=False,
     )
     country = forms.ChoiceField(
-        choices=cache.get('country_list'),
+        choices=get_cache_param('country_list'),
         required=False
     )
     type_equipment = forms.ChoiceField(
-        choices=cache.get('typeEquipment'),
+        choices=get_cache_param('typeEquipment'),
         required=False
     )
 
