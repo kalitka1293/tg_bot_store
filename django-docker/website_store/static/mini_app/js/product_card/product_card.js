@@ -37,7 +37,7 @@ document.addEventListener('click', (e) => {
 
         axios({
             method: 'PUT',
-            url: `${window.URL_FASTAPI.url}/basket`,
+            url: `${window.URL_FASTAPI.url}/basket/`,
             data: {
                 product_id: productID,
                 quantity: 1
