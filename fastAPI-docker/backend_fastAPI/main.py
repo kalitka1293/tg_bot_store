@@ -5,7 +5,7 @@ from routers import basket as BasketRouter
 from routers import product_search as ProductRouter
 from fastapi.responses import JSONResponse
 from fastapi_csrf_protect import CsrfProtect
-from pydantic import BaseSettings
+from pydantic import BaseModel
 
 app = FastAPI(root_path="/api")
 # Настройка безопастности требуется
@@ -36,7 +36,7 @@ if os.path.exists(path_env):
 else:
     raise FileExistsError('Нет файла .env')
 
-class CsrfSettings(BaseSettings):
+class CsrfSettings(BaseModel):
     secret_key: str = str(os.getenv("CSRF_SECRET_KEY"))
 
 @CsrfProtect.load_config
