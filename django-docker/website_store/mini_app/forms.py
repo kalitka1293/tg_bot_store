@@ -11,6 +11,8 @@ def get_cache_param(key: str):
         print(cache.get(key))
         print('\n\n')
         return cache.get(key)
+    else:
+        return cache.get(key)
 
 class SearchForm(forms.Form):
     brand = forms.ChoiceField(
