@@ -8,11 +8,11 @@ from routers import product_search as ProductRouter
 app = FastAPI(root_path="/api")
 # Настройка безопастности требуется
 origin = [
-        "109.73.195.165",
+        "shovik.ru",
+        "www.shovik.ru",
         "http://127.0.0.1:8000",
         "localhost"
     ]
-print(origin)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origin,
