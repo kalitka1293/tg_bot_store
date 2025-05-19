@@ -34,7 +34,6 @@ async def create_basket(data: basket.Basket, db: AsyncSession, telegram_id: int)
 
 
 async def update_basket(data: basket.Basket, db: AsyncSession, telegram_id: int):
-    print(data.product_id, db, telegram_id)
     try:
         result = await db.execute(select(Basket)
                                   .where(
@@ -63,6 +62,7 @@ async def update_basket(data: basket.Basket, db: AsyncSession, telegram_id: int)
         #     )
         return status.HTTP_200_OK
     except Exception as f:
+        print(f)
         return JSONResponse(
             status_code=status.HTTP_400_BAD_REQUEST,
             content={
