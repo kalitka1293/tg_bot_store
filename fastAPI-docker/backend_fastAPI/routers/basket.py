@@ -19,9 +19,9 @@ async def create(
         TelegramId,
         Depends(validation_authorization_get_current_user)
     ],
-    db: AsyncSession = Depends(get_db),
     request: Request,
-    csrf_protect: CsrfProtect = Depends()
+    csrf_protect: CsrfProtect = Depends(),
+    db: AsyncSession = Depends(get_db),
 ):
     await csrf_protect.validate_csrf(request)
     return await BasketServices.create_basket(data, db, telegram_id.telegram_id)
