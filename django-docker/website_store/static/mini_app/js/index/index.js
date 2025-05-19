@@ -35,7 +35,7 @@ document.addEventListener('click', (e) => {
 
         axios({
             method: 'PUT',
-            url: `${window.URL_FASTAPI.url}/basket`,
+            url: `${window.URL_FASTAPI.url}/basket/`,
             data: {
                 product_id: productID,
                 quantity: 1
@@ -121,7 +121,7 @@ const DEBOUNCE_DELAY = 300; // Задержка в миллисекундах
 const performSearch = (query_search) => {
     if (query_search.trim() !== '') {
         console.log('Ищем:', query_search);
-        axios.get(`${window.URL_FASTAPI.url}/products/search`, {
+        axios.get(`${window.URL_FASTAPI.url}/products/search/`, {
             params: { query: query_search },
             headers: {
                 'accept': 'application/json'
