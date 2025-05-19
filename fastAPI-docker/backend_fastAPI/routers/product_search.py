@@ -11,8 +11,6 @@ async def perform_search(query):
         "limit": 7,
     }
     result = index.search(query, search_params)
-    result = result['hits']
-    print(result, '<<<<<<<')
     return result
 
 
