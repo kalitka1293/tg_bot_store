@@ -3,7 +3,6 @@ from django.core.cache import cache
 
 
 class SearchForm(forms.Form):
-    print(cache.get('brand_list'))
     brand = forms.ChoiceField(
         choices=cache.get('brand_list'),
         required=False,

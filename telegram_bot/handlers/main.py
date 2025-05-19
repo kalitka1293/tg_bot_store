@@ -15,7 +15,7 @@ def get_miniapp_keyboard():
     return types.InlineKeyboardMarkup(inline_keyboard=[
         [types.InlineKeyboardButton(
             text="Открыть Mini App",
-            web_app=types.WebAppInfo(url="https://57a7a3c1557025.lhr.life/mini_app/menu")
+            web_app=types.WebAppInfo(url="https://shovik.ru/mini_app/menu/")
         )]
     ])
 
