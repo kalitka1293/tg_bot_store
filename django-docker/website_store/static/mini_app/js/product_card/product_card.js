@@ -1,3 +1,10 @@
+function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+}
+
+
 document.addEventListener('click', (e) => {
     if (e.target.classList.contains('buy-btn')) {
         const text_to_basket = 'Перейти в корзину'
@@ -38,6 +45,7 @@ document.addEventListener('click', (e) => {
             withCredentials: true,
             headers: {
                 "Content-Type": "application/json",
+                "X-CSRF-Token": getCookie('fastapi-csrf-token'),
             }
         }).then(function (response) {
             console.log('Ответ сервера:', response.status);
@@ -60,14 +68,5 @@ document.addEventListener('click', (e) => {
 
 function showReviewForm() {
     // Ваша логика открытия формы
-    alert('Форма отзыва будет здесь');
-    /* Пример реализации:
-    const form = document.createElement('div');
-    form.innerHTML = `
-        <div class="review-form-overlay">
-            ...
-        </div>
-    `;
-    document.body.appendChild(form);
-    */
+    alert('Функция добавления комментариев временно недоступна');
 }

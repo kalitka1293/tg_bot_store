@@ -3,21 +3,27 @@ from typing import Annotated
 from database import get_db
 from dto import basket as BasketDTO
 from dto.token_jwt import TelegramId
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Request
 from services import basket as BasketServices
 from services.token_jwt import validation_authorization_get_current_user
 from sqlalchemy.ext.asyncio import AsyncSession
+from fastapi_csrf_protect import CsrfProtect
 
 router = APIRouter()
 
 
 @router.post('/', tags=['create_basket'])
-async def create(data: BasketDTO.Basket,
-                 telegram_id: Annotated[
-                     TelegramId,
-                     Depends(validation_authorization_get_current_user)
-                 ],
-                 db: AsyncSession=Depends(get_db)):
+async def create(
+    data: BasketDTO.Basket,
+    telegram_id: Annotated[
+        TelegramId,
+        Depends(validation_authorization_get_current_user)
+    ],
+    db: AsyncSession = Depends(get_db),
+    request: Request,
+    csrf_protect: CsrfProtect = Depends()
+):
+    await csrf_protect.validate_csrf(request)
     return await BasketServices.create_basket(data, db, telegram_id.telegram_id)
 
 
