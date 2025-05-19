@@ -103,10 +103,10 @@ const showResults = (results) => {
         resultsContainer.appendChild(resultItem);
 
         // Оставляем обработчик клика для дополнительного функционала
-        resultItem.addEventListener('click', () => {
-            document.getElementById('searchInput').value = item.title;
-            resultsContainer.style.display = 'none';
-        });
+//        resultItem.addEventListener('click', () => {
+//            document.getElementById('searchInput').value = item.title;
+//            resultsContainer.style.display = 'none';
+//        });
     });
 }
 
