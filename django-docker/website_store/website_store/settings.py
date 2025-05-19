@@ -35,23 +35,22 @@ BOT_SECRET = env('BOT_SECRET')
 SET_COOKIE_SECURE = env('SET_COOKIE_SECURE')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DEBUG')
-link = 'https://57a7a3c1557025.lhr.life'
-link = link[8:]
 
 ALLOWED_HOSTS = [
+    "https://shovik.ru",
+    "https://www.shovik.ru",
     "shovik.ru",
     "www.shovik.ru",
-    link,  # Без схемы (http/https)
     "localhost",
     "127.0.0.1",
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True
-CSRF_COOKIE_SECURE = False
-CSRF_COOKIE_HTTPONLY = False
+CSRF_COOKIE_SECURE = True
+CSRF_COOKIE_HTTPONLY = True
 CSRF_TRUSTED_ORIGINS = [
-    f"https://{link}",  # Точный URL из ошибки
-    "http://localhost",                 # Для локального тестирования
+    "https://shovik.ru",
+    "https://www.shovik.ru",
 ]
 
 # Разрешить конкретные заголовки
