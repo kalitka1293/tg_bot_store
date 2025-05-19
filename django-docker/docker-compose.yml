@@ -24,7 +24,7 @@ services:
       - main
     depends_on:
       - web
-
+dghkgl
 networks:
   main:
     external: true

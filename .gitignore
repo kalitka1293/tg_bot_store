@@ -8,6 +8,6 @@ venv-fast/
 venv-bot/
 .env*
 staticfiles/
-/**/*docker-compose.yml
-/**/*Dockerfile
+docker-compose.yml
+Dockerfile
 
