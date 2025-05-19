@@ -180,6 +180,8 @@ CACHES = {
     "default": {
         "BACKEND": env('BACKEND'),
         "LOCATION": env('LOCATION'),
+        "VERSION": 1,
+        "KEY_PREFIX": "store",
         "OPTIONS": {
             "CLIENT_CLASS": env('CLIENT_CLASS'),
         }
