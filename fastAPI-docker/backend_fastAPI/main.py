@@ -4,7 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from routers import basket as BasketRouter
 from routers import product_search as ProductRouter
 from fastapi.responses import JSONResponse
-from fastapi_csrf_protect import CsrfProtect, CsrfProtectError
+from fastapi_csrf_protect import CsrfProtect
 from pydantic import BaseSettings
 
 app = FastAPI(root_path="/api")
