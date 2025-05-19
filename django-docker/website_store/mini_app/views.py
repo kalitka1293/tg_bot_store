@@ -6,21 +6,9 @@ from django.views.generic.list import ListView
 from mini_app.filter import ProductSearch
 from mini_app.forms import SearchForm
 from mini_app.models import Article, Product
-from mini_app.redis import download_product_all_redis, search_parameters_redis
+from mini_app.redis import download_product_all_redis, search_parameters_redis, check_data_in_redis
 
 F = 'test_fastapi'
-
-
-def check_data_in_redis():
-    """
-    Првоерка существований и содержания ключей redis
-    """
-    if cache.get('products') is None:
-        print('NULL DATA IN REDIS products')
-        download_product_all_redis()
-    if cache.get('brand_list') is None:
-        print('NULL DATA IN REDIS brand_list')
-        search_parameters_redis()
 
 
 @csrf_exempt
@@ -86,7 +74,6 @@ class SearchView(ListView):
         return self.filterset.qs
 
     def get_context_data(self, *, object_list=None, **kwargs):
-        check_data_in_redis()
         context = super().get_context_data(**kwargs)
         context['form'] = SearchForm(initial=self.data_request)
         return context

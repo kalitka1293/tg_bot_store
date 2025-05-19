@@ -3,6 +3,17 @@ from mini_app.models import (Brand, Country, ParameterProduct, Product,
                              ProductImage, ReviewProduct, TypeEquipment)
 
 
+def check_data_in_redis():
+    """
+    Првоерка существований и содержания ключей redis
+    """
+    if cache.get('products') is None:
+        print('NULL DATA IN REDIS products')
+        download_product_all_redis()
+    if cache.get('brand_list') is None:
+        print('NULL DATA IN REDIS brand_list')
+        search_parameters_redis()
+
 def search_parameters_redis():
     print('== DOWNLOAD search_parameters_redis ==')
     brand_list = Brand.objects.all()

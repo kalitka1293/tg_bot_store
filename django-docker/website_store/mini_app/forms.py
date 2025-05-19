@@ -1,10 +1,15 @@
 from django import forms
 from django.core.cache import cache
+from mini_app.redis import check_data_in_redis
 
+def get_cache_param(key: str):
+    if cache.get(key) is None:
+        check_data_in_redis
+        return cache.get(key)
 
 class SearchForm(forms.Form):
     brand = forms.ChoiceField(
-        choices=cache.get('brand_list'),
+        choices=get_cache_param('brand_list') if get_cache_param('brand_list') else (('пизда', 'пизда')),
         required=False,
     )
     country = forms.ChoiceField(
