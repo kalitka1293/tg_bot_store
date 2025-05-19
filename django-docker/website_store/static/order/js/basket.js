@@ -68,7 +68,7 @@ const send_basket = (productID, method, quantity) => {
     console.log(productID, method, quantity);
     axios({
         method: method,
-        url: `${window.URL_FASTAPI.url}/basket`,
+        url: `${window.URL_FASTAPI.url}/basket/`,
         data: {
             product_id: productID,
             quantity: quantity

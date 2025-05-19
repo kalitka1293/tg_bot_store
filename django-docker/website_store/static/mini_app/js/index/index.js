@@ -1,7 +1,4 @@
-﻿axios.get(`${window.URL_FASTAPI.url}/csrf-token/`, { withCredentials: true });
-
-
-// Обработчик корзины
+﻿// Обработчик корзины
 document.addEventListener('click', (e) => {
     if (e.target.classList.contains('add-to-cart')) {
         const text_to_basket = 'Перейти в корзину'
