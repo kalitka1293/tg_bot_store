@@ -99,6 +99,13 @@ const showResults = (results) => {
         resultLink.style.textDecoration = 'none'; // Убираем подчеркивание
         resultLink.style.color = 'inherit'; // Наследуем цвет текста
 
+                // Обработчик на pointerup (работает и на мыши, и на касании)
+        resultLink.addEventListener('pointerup', () => {
+            document.getElementById('searchInput').value = item.name;
+            resultsContainer.style.display = 'none';
+            // Переход по ссылке произойдет автоматически после pointerup
+        });
+
         resultItem.appendChild(resultLink);
         resultsContainer.appendChild(resultItem);
 
