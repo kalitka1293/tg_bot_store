@@ -20,11 +20,14 @@ async def create_basket(data: basket.Basket, db: AsyncSession, telegram_id: int)
         product_id=data.product_id
     )
     try:
+        print(baskets)
         db.add(baskets)
         await db.commit()
+        print('Success db commit')
         return status.HTTP_200_OK
         # producer_rabbit.producer(data.get_json('create'))
     except Exception as f:
+        print(f)
         return JSONResponse(
             status_code=status.HTTP_400_BAD_REQUEST,
             content={
