@@ -13,10 +13,10 @@ def search_parameters_redis():
     country_list = (('', ''),) + tuple([(i.country, i.country) for i in country_list])
     typeEquipment = (('', ''),) + tuple([(i.type_equipment, i.type_equipment) for i in typeEquipment])
 
-    cache.set('brand_list', brand_list)
+    cache.set('brand_list', brand_list, timeout=2 * 24 * 60 * 60)
     print(cache.get('brand_list'))
-    cache.set('country_list', country_list)
-    cache.set('typeEquipment', typeEquipment)
+    cache.set('country_list', country_list, timeout=2 * 24 * 60 * 60)
+    cache.set('typeEquipment', typeEquipment, timeout=2 * 24 * 60 * 60)
     return None
 
 
@@ -53,7 +53,7 @@ def download_product_all_redis():
             dict_product.update(product_data)
 
     main_product.update(dict_product)
-    cache.set('products', main_product)
+    cache.set('products', main_product, timeout=2 * 24 * 60 * 60)
     main_product.clear()
     dict_product.clear()
 

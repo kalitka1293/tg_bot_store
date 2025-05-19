@@ -4,7 +4,7 @@ from django.utils import timezone
 from mini_app.models import Product, StoreUser
 from rabbitmq_common_code.config_common import PRODUCT_MEILISEARCH
 from rabbitmq_common_code.producer import ProducerRabbit
-
+from mini_app.redis import download_product_all_redis, search_parameters_redis
 
 @receiver(post_init, sender=StoreUser)
 def update_last_login(sender, instance, **kwargs):
@@ -14,6 +14,8 @@ def update_last_login(sender, instance, **kwargs):
 
 @receiver(post_save, sender=Product)
 def after_add_product_in_db(sender, instance, created, **kwargs):
+    download_product_all_redis()
+    search_parameters_redis()
     data = {
         "product_id": instance.id,
         "type": "add_product",
