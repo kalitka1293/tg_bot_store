@@ -4,7 +4,7 @@ from mini_app.redis import check_data_in_redis
 
 def get_cache_param(key: str):
     if cache.get(key) is None:
-        check_data_in_redis
+        check_data_in_redis()
         return cache.get(key)
 
 class SearchForm(forms.Form):
