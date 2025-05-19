@@ -8,7 +8,7 @@ from PIL import Image
 
 
 class StoreUser(models.Model):
-    telegram_id = models.IntegerField(unique=True)
+    telegram_id = models.BigIntegerField(unique=True)
     telegram_username = models.CharField()
     telegram_first_name = models.CharField(null=True, blank=True)
     telegram_last_name = models.CharField(null=True, blank=True)
