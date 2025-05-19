@@ -73,49 +73,44 @@ const loadIcons = () => {
 
 
 
-// Функция для отображения результатов
 const showResults = (results) => {
-    console.log(results)
     const resultsContainer = document.getElementById('searchResults');
     resultsContainer.innerHTML = '';
 
     if (results.length === 0) {
         resultsContainer.innerHTML = '<div class="search-result-item">Ничего не найдено. Воспользуйтесь фильтром для товаров</div>';
+        resultsContainer.style.display = 'block'; // Показываем контейнер
         return;
     }
 
-    // Ограничиваем до 5 результатов
-    const limitedResults = results;
-
-    limitedResults.forEach(item => {
+    results.forEach(item => {
         const resultItem = document.createElement('div');
         resultItem.className = 'search-result-item';
 
         const resultLink = document.createElement('a');
-        resultLink.textContent = 'Кондиционер: ' + item.name + ' | бренд:' + item.brand;
+        resultLink.textContent = 'Кондиционер: ' + item.name + ' | бренд: ' + item.brand;
         resultLink.href = window.URL_SITE.product.replace('0', item.id);
-        resultLink.style.display = 'block'; // Чтобы ссылка занимала всю площадь элемента
-        resultLink.style.padding = '10px'; // Добавляем отступы для лучшего UX
-        resultLink.style.textDecoration = 'none'; // Убираем подчеркивание
-        resultLink.style.color = 'inherit'; // Наследуем цвет текста
+        resultLink.style.display = 'block';
+        resultLink.style.padding = '10px';
+        resultLink.style.textDecoration = 'none';
+        resultLink.style.color = 'inherit';
 
-                // Обработчик на pointerup (работает и на мыши, и на касании)
+        // Обработчик pointerup с отложенным скрытием
         resultLink.addEventListener('pointerup', () => {
             document.getElementById('searchInput').value = item.name;
-            resultsContainer.style.display = 'none';
-            // Переход по ссылке произойдет автоматически после pointerup
+            // Отложенное скрытие, чтобы браузер успел перейти по ссылке
+            setTimeout(() => {
+                resultsContainer.style.display = 'none';
+            }, 200); // 200 мс - достаточно для перехода
         });
 
         resultItem.appendChild(resultLink);
         resultsContainer.appendChild(resultItem);
-
-        // Оставляем обработчик клика для дополнительного функционала
-//        resultItem.addEventListener('click', () => {
-//            document.getElementById('searchInput').value = item.title;
-//            resultsContainer.style.display = 'none';
-//        });
     });
+
+    resultsContainer.style.display = 'block'; // Показываем контейнер с результатами
 }
+
 
 
 
