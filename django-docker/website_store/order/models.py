@@ -10,7 +10,7 @@ class BasketObjects(models.QuerySet):
 
 class Basket(models.Model):
     product = models.ForeignKey(to=Product, on_delete=models.CASCADE)
-    user = models.IntegerField()
+    user = models.BigIntegerField()
     quantity = models.SmallIntegerField()
 
     objects = BasketObjects.as_manager()
