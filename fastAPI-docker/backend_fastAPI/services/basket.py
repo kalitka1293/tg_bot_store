@@ -13,6 +13,7 @@ producer_rabbit = ProducerRabbit(BASKET_QUEUE, 'basket')
 
 
 async def create_basket(data: basket.Basket, db: AsyncSession, telegram_id: int):
+    print(data.product_id, db, telegram_id)
     baskets = Basket(
         user=telegram_id,
         quantity=1,
