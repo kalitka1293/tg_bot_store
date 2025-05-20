@@ -28,6 +28,7 @@ urlpatterns = [
 ]
 
 handler500 = 'jwt_custom.views.custom_type_error_handler'
+handler404 = 'jwt_custom.views.custom_type_error_handler_404'
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

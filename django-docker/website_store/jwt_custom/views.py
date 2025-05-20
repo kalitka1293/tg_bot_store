@@ -24,6 +24,10 @@ def custom_type_error_handler(request, exception=None):
     return render(request, "jwt_custom/error500.html", status=500)
 
 
+def custom_type_error_handler_404(request, exception=None):
+    return render(request, "jwt_custom/error404.html", status=404)
+
+
 class ErrorAuthorizationView(TemplateView):
     template_name = 'jwt_custom/error_authorization_in_telegram.html'
 

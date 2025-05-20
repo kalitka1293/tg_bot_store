@@ -49,22 +49,13 @@
 </head>
 <body>
     <div class="container">
-        <h1>Пожалуйста, перезапустите приложение</h1>
-        <p>Данный сайт предназначен только для Telegram.</p>
-            <p>Для корректной работы Telegram Mini App необходимо перезапустить приложение.</p>
-        <button onclick="restartApp()">Перезапустить</button>
+        <h1>Заказ успешно сформирован</h1>
+      <p>Номер заказа №{{ order_id }}</p>
+        <p>Скоро с вами свяжется менеджер для уточнения деталей заказа</p>
+            <p>Вы можете вернуться на главное меню по кнопке ниже</p>
+        <a href="https://shovik.ru/mini_app/menu/">
+  <button type="button">Главное меню</button>
+</a>
     </div>
-
-    <script>
-        function restartApp() {
-            if (window.Telegram && Telegram.WebApp) {
-                Telegram.WebApp.close(); // Закрыть мини-приложение
-                // После закрытия пользователь может открыть заново из Telegram
-            } else {
-                // Если не в Telegram Mini App, просто перезагрузить страницу
-                location.reload();
-            }
-        }
-    </script>
 </body>
 </html>

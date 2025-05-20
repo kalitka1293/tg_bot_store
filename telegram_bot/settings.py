@@ -11,3 +11,4 @@ else:
 LIST_NOT_USE_VAR = ['path_env']
 
 BOT_TOKEN = str(os.getenv('BOT_TOKEN'))
+CHANNEL_ID = int(os.getenv('CHANNEL_ID'))

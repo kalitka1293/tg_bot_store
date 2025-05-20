@@ -28,7 +28,7 @@ class ConnectValidRabbit:
             case 'add_data_meiliseacrh':
                 return {"type": "object","properties": {"product_id":{"type":"number"}, "type":{"type":"string"}, "index": {"type":"string"}}, "required": ["product_id", "type", "index"], "additionalProperties": False }
             case 'fastapi_meilisearch':
-                return None
+                return True
             case _:
                 raise ValueError(f'Нет такой схемы {self.schema}')
 

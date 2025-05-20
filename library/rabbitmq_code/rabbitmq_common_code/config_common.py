@@ -5,6 +5,7 @@ from jsonschema import validate, ValidationError
 BASKET_QUEUE = 'basket'
 PRODUCT_MEILISEARCH = 'meilisearch'
 FASTAPI_QUEUE = 'fastapi'
+TG_BOT = 'tg_bot'
 
 class ConnectValidRabbit:
     def __init__(self, queue: str, schema: str, __class=None):

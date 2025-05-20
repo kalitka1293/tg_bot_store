@@ -16,7 +16,7 @@ if(target.classList.contains('delete-btn')) {
     document.querySelectorAll('.item-price').forEach(element => {
         total += parseFloat(element.textContent.replace(' ₽', ''));
     });
-    document.querySelector('.total-price').textContent = total.toFixed(2) + ' ₽';
+    document.querySelector('.total-price').textContent = total.toFixed(0) + ' ₽';
 
     // Показываем сообщение если корзина пуста
     if(document.querySelectorAll('.cart-item').length === 0) {
@@ -53,13 +53,13 @@ if(target.classList.contains('delete-btn')) {
     const itemInfo = target.closest('.item-info');
     const price = parseFloat(itemInfo.querySelector('.price_product').value);
     const itemPriceElement = itemInfo.querySelector('.item-price');
-    itemPriceElement.textContent = (price * newQuantity).toFixed(2) + ' ₽';
+    itemPriceElement.textContent = (price * newQuantity).toFixed(0) + ' ₽';
 
     let total = 0;
     document.querySelectorAll('.item-price').forEach(element => {
         total += parseFloat(element.textContent.replace(' ₽', ''));
     });
-    document.querySelector('.total-price').textContent = total.toFixed(2) + ' ₽';
+    document.querySelector('.total-price').textContent = total.toFixed(0) + ' ₽';
     // Конец нового кода
   }
 });

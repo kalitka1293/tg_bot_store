@@ -34,7 +34,7 @@
                     <input type="hidden" class="id_product" value="{{ product_card.id }}" />
                     <button id="button{{ product_card.id }}" class="buy-btn">Добавить в корзину</button>
                 </div>
-
+                <a><b>Рабочая площадь, m²</b></a>
                 <div class="sizes">
                     {% for other_product in product_card.group_product %}
                         {% if other_product.id == product_card.id %}
@@ -77,7 +77,7 @@
                             <td>{{ product_card.heating_power }}</td>
                         </tr>
                         <tr>
-                            <td><b>Рабочая площадь:</b></td>
+                            <td><b>Рабочая площадь m²:</b></td>
                             <td>{{ product_card.working_area }}</td>
                         </tr>
                         <tr>

@@ -1,17 +1,17 @@
-
 .add-to-cart {
-    margin: auto auto;
-    background: #0772A1;
+    position: absolute;
+    bottom: 16px;
+    left: 8px;  /* учитываем padding .product-card (8px) */
+    right: 8px; /* чтобы кнопка не выходила за пределы */
+    width: auto; /* ширина по оставшемуся месту */
+    background: #1E90FF;
     color: white;
     border: none;
     padding: 8px 12px;
     border-radius: 5px;
     cursor: pointer;
-    width: 100%;
-    margin-top: 10px;
     font-size: 0.9rem;
+    text-align: center;
+    box-sizing: border-box;
 }
 
-.add-to-cart:hover {
-  background: #45a049;
-}

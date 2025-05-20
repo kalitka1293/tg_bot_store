@@ -68,6 +68,7 @@ background: white;
 }
 
 .buy-btn {
+    text-align: center;
     background: #000000;
     color: white;
     border: none;
