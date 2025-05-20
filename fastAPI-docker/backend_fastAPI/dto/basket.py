@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 
 
-class Basket(BaseModel):
+class BasketShema(BaseModel):
     product_id: int
     quantity: int
 

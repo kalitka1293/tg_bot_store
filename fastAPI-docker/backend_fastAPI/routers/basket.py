@@ -14,7 +14,7 @@ router = APIRouter()
 
 @router.post('/', tags=['create_basket'])
 async def create(
-    data: BasketDTO.Basket,
+    data: BasketDTO.BasketShema,
     telegram_id: Annotated[
         TelegramId,
         Depends(validation_authorization_get_current_user)
@@ -25,7 +25,7 @@ async def create(
 
 
 @router.put('/', tags=['update_basket'])
-async def update(data: BasketDTO.Basket,
+async def update(data: BasketDTO.BasketShema,
                  telegram_id: Annotated[
                      TelegramId,
                      Depends(validation_authorization_get_current_user)
@@ -35,7 +35,7 @@ async def update(data: BasketDTO.Basket,
 
 
 @router.delete('/', tags=['delete_basket'])
-async def delete(data: BasketDTO.Basket,
+async def delete(data: BasketDTO.BasketShema,
                  telegram_id: Annotated[
                      TelegramId,
                      Depends(validation_authorization_get_current_user)
