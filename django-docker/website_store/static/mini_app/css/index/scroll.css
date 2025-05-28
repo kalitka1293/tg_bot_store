@@ -13,7 +13,7 @@
 
 .blocks-wrapper {
     display: flex;
-    gap: 2px;
+    gap: 15px;
     padding: 0 5px;
 }
 

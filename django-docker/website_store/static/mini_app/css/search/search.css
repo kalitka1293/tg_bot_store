@@ -93,7 +93,7 @@ select {
 .apply-button {
     width: 100%;
     padding: 1rem;
-    background: #007bff;
+    background: #000000;
     color: white;
     border: none;
     border-radius: 8px;
