@@ -1,13 +1,10 @@
 .scroll-container {
-    margin-top: 8px;
-    margin-bottom: 7x;
-    overflow-x: none; /* Включить скролл при необходимости */
-    scrollbar-width: none; /* Для Firefox */
-    padding: 10px 0 15px;
-    white-space: nowrap;
+    width: fit-content; /* ширина по содержимому */
+    max-width: 100%;    /* чтобы не выходить за пределы экрана */
     margin-left: auto;
     margin-right: auto;
-    max-width: 400px; /* или фиксированная ширина */
+    margin-top: 20px;    /* отступ сверху */
+    margin-bottom: 30px; /* отступ снизу */
 }
 
 .scroll-container::-webkit-scrollbar {
