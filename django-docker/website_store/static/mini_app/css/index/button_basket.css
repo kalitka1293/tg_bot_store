@@ -4,11 +4,11 @@
     left: 8px;  /* учитываем padding .product-card (8px) */
     right: 8px; /* чтобы кнопка не выходила за пределы */
     width: auto; /* ширина по оставшемуся месту */
-    background: #1E90FF;
+    background: #000000;
     color: white;
     border: none;
     padding: 8px 12px;
-    border-radius: 5px;
+    border-radius: 15px;
     cursor: pointer;
     font-size: 0.9rem;
     text-align: center;

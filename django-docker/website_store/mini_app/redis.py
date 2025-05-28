@@ -2,6 +2,14 @@ from django.core.cache import cache
 from mini_app.models import (Brand, Country, ParameterProduct, Product,
                              ProductImage, ReviewProduct, TypeEquipment)
 
+def get_cache_param(key: str):
+    data = cache.get(key)
+    if data is None:
+        check_data_in_redis()
+        return cache.get(key)
+    else:
+        return data
+
 
 def check_data_in_redis():
     """

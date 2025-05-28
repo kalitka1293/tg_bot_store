@@ -10,22 +10,111 @@
     <link rel="stylesheet" href="{% static 'mini_app/css/product_card/review.css' %}" />
     <script src="{% static 'mini_app/js/product_card/product_card.js' %}"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 
     <title>{{ product_card.name }}</title>
+    <style>
+        .product-swiper {
+    width: 100%;
+    height: 100%;
+    margin-top: 50px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+    color: white;
+    background: rgba(0,0,0,0.3);
+    padding: 15px;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.swiper-button-prev::after,
+.swiper-button-next::after {
+    font-size: 20px;
+}
+.swiper-pagination {
+    position: relative;
+    text-align: center;
+    transition: .3s opacity;
+    transform: translate3d(0,0,0);
+    z-index: 10;
+}
+
+.swiper-pagination-bullet {
+    background: black !important;
+    opacity: 0.3;
+}
+
+.swiper-pagination-bullet-active {
+    opacity: 1;
+}
+.swiper-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}  /* ← Добавлено */
+
+.product-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 6px;
+    margin-bottom: 10px;
+}
+    </style>
+
+    <script>
+          document.addEventListener('DOMContentLoaded', function () {
+    // Инициализация всех слайдеров с классом .product-swiper
+    const swipers = document.querySelectorAll('.product-swiper');
+    swipers.forEach(swiperEl => {
+      new Swiper(swiperEl, {
+        loop: true,
+        pagination: {
+          el: swiperEl.querySelector('.swiper-pagination'),
+          clickable: true,
+        },
+        slidesPerView: 1,
+        spaceBetween: 10,
+      });
+    });
+  });
+    </script>
 
 </head>
 <body>
     {% include 'mini_app/header.html' %}
 
     <div class="container">
-                    <div class="gallery">
-                        <div class="main-image"><img src="{{ product_card.images_product.0 }}" alt="{{product_card.name}}"></div>
-                <div class="thumbnails">
-                    {% for im in  product_card.images_product %}
-                        <div class="thumbnail"><img src="{{ im }}" alt="{{product_card.name}}"></div>
-                    {% endfor %}
+
+<!--                    <div class="gallery">-->
+<!--                        <div class="main-image"><img src="{{ product_card.images_product.0 }}" alt="{{product_card.name}}"></div>-->
+<!--                <div class="thumbnails">-->
+<!--                    {% for im in  product_card.images_product %}-->
+<!--                        <div class="thumbnail {% if forloop.first %} active {% endif %}"><img src="{{ im }}" alt="{{product_card.name}}"></div>-->
+<!--                    {% endfor %}-->
+<!--                </div>-->
+<!--            </div>-->
+            <div class="swiper product-swiper">
+            <div class="swiper-wrapper">
+                {% for image in product_card.images_product %}
+                <div class="swiper-slide">
+                        <img src="{{ image }}" alt="{{ product.name }}" class="product-image">
                 </div>
+                {% endfor %}
             </div>
+            <!-- Пагинация и навигация -->
+            <div class="swiper-pagination"></div>
+            </div>
+
         <div class="product-main">
             <div class="product-info">
                 <h1>{{ product_card.name }}</h1>

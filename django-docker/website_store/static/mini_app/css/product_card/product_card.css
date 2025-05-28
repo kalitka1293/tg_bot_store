@@ -1,17 +1,14 @@
 * {
-    background: white;
+
     box-sizing: border-box;
     font-family: Arial, sans-serif;
 }
 
-.body {
-background: white;
-}
 
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 20px;
+    padding: 10px;
 }
 
 .product-main {
@@ -45,7 +42,7 @@ background: white;
 }
 
 .thumbnail.active img {
-    border-color: rgba(105, 188, 255, 1);
+    border-color: rgba(255, 0, 0, 0.4);
 }
 
 .product-info {
@@ -54,14 +51,15 @@ background: white;
 }
 
 .price-block {
-    background: rgba(233, 245, 255, 1);
+    background: rgba(233, 245, 255, 0.15);
     padding: 20px;
     border-radius: 8px;
     margin: 20px auto;
+    text-align: center;
 }
 
 .price {
-    background: rgba(233, 245, 255, 1);
+
     font-size: 32px;
     color: #000000;
     margin: 10px 0;
@@ -100,16 +98,21 @@ background: white;
     margin: 15px 0;
 }
 
+.sizes a {
+    text-align: justify;
+    display: block; /* чтобы text-align применялся корректно к <a> */
+}
+
 .size-btn {
     padding: 8px 12px;
-    border: 1px solid #ddd;
+    border: 1px solid #000000;
     border-radius: 4px;
     cursor: pointer;
 }
 
 .size-btn.selected {
-    border-color: rgba(41, 124, 226, 1);
-    background: rgba(222, 240, 255, 1);
+    border-color: rgba(255, 0, 0, 0.5);
+    background: rgba(255, 255, 255, 0.2);
 }
 .size-btn a {
 color: inherit;

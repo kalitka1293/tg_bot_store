@@ -1,19 +1,6 @@
 from django import forms
 from django.core.cache import cache
-from mini_app.redis import check_data_in_redis
-
-def get_cache_param(key: str):
-    data = cache.get(key)
-    if data is None:
-        print('\n\n')
-        print('ключа нет')
-        print('\n\n')
-        check_data_in_redis()
-        print(cache.get(key))
-        print('\n\n')
-        return cache.get(key)
-    else:
-        return data
+from mini_app.redis import check_data_in_redis, get_cache_param
 
 class SearchForm(forms.Form):
     brand = forms.ChoiceField(

@@ -6,7 +6,7 @@ from django.views.generic.list import ListView
 from mini_app.filter import ProductSearch
 from mini_app.forms import SearchForm
 from mini_app.models import Article, Product
-from mini_app.redis import download_product_all_redis, search_parameters_redis, check_data_in_redis
+from mini_app.redis import download_product_all_redis, search_parameters_redis, check_data_in_redis, get_cache_param
 
 F = 'test_fastapi'
 
@@ -29,6 +29,7 @@ class MainMenuView(ListView):
         if self.kwargs.get('param', False):
             if self.kwargs.get('param') == 'ShowPopup':
                 context['showPopup'] = True
+        context['brand_list'] = [i[0] for i in get_cache_param('brand_list')][1:]
         return context
 
     def get_queryset(self):
